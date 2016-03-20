@@ -1,1 +1,1 @@
-gsb
+# Présentation du projet
