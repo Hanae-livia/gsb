@@ -1,0 +1,23 @@
+{
+    "name": "hanae/gsb",
+    "description": "Projet final - épreuve BTS Grand Oral",
+    "authors": [
+        {
+            "name": "Melanie Tardy",
+            "email": "tardy.melanie.contact@gmail.com"
+        },
+        {
+            "name": "Jerome Lefebvre",
+            "email": "lefebvre.jerome21@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "3.x-dev",
+        "slim/twig-view": "2.1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "GSB\\": "app/src"
+        }
+    }
+}
