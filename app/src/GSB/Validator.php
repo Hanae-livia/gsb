@@ -3,56 +3,89 @@
 namespace GSB\GSB;
 
 
-use Slim\Http\Request;
-
 /**
+ * Class Validator
+ *
  * Valide les champs d'un formulaire
  */
 class Validator
 {
-    protected $rules = [];
+    // Attributs
     protected $params = [];
+    protected $rules = [];
+    protected $errors = [];
 
-    public function __construct(Request $request)
+    // Constructeur
+    /**
+     * Constructeur de la classe Validator
+     *
+     * @param array $p_params Paramètres envoyés ($_POST) par le formulaire
+     */
+    public function __construct(array $p_params)
     {
-        $this->params = $request->getParams(); // Récupère les params de la requête ($_GET / $_POST)
+       $this->params = $p_params;
+    }
+
+    // Méthodes
+    /**
+     * Ajoute les règles de validation et les messages d'erreurs correspondants
+     *
+     * @param array $p_rules Règles et messages d'erreurs
+     */
+    public function addRules(array $p_rules)
+    {
+        $this->rules = $p_rules;
     }
 
     /**
-     * Récupère les règles de validation
-     * @param array $rules
+     * Exécute les règles de validation pour chaque paramètre et remplit un tableau d'erreurs si il y en a
+     *
+     * @return bool Indique si il y a des erreurs ou non
+     * @throws \Exception
      */
-    public function addRules(array $rules)
+    public function check()
     {
-        $this->rules = $rules;
-    }
+        // Pour chaque élément du tableau contenant les règles de validation
+        foreach ($this->rules as $paramName => $rules)
+        {
+            // Si le paramètre correspondant à la règle existe ...
+            if (isset ($this->params[$paramName]))
+            {
+                // Execution des règles de validation sur chaque paramètre
+                foreach ($this->rules[$paramName] as $rule => $errorMessage)
+                {
+                    switch ($rule)
+                    {
+                        case 'required':
+                            if (empty($this->params[$paramName]))
+                            {
+                                $this->errors[] = $errorMessage;
+                            }
+                            break;
 
-    public function validate()
-    {
-        $valid = true;
+                        default :
+                            throw new \Exception('La règle ' . $rule .' n\'existe pas');
 
-        var_dump($this->rules);
-        var_dump($this->params);
-        var_dump('---------------');
-        foreach ($this->rules as $name => $rule) {
-            var_dump('LOOP ' . $name . ' => ' . $rule);
-            $value = trim($this->params[$name]);
-
-            switch ($rule) {
-                case 'notEmpty':
-                    $valid = $this->isNotEmpty($value);
-                    break;
-
-                default:
-                    break;
+                    }
+                }
+            }
+            else
+            {
+                // ... sinon une erreur est envoyée
+                throw new \Exception('Le paramètre ' . $paramName .' n\'a pas été trouvé');
             }
         }
-        var_dump($valid);
-        return $valid;
+        // Renvoie un booléen : si tableau d'erreur ne contient rien alors true sinon false
+        return count($this->errors) === 0;
     }
 
-    protected function isNotEmpty($value)
+    /**
+     * Retourne un tableau d'erreurs
+     *
+     * @return array Tableau contenant les messages d'erreur
+     */
+    public function getErrors()
     {
-        return !empty($value);
+        return $this->errors;
     }
 }
