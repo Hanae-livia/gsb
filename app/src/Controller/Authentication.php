@@ -21,6 +21,11 @@ class Authentication extends Controller
      */
     public function index (Request $request, Response $response)
     {
+        // Si l'utilisateur est déjà connecté redirection vers le dashboard
+        if (!empty($_SESSION['user'])) {
+            return $response->withRedirect($this->container->get('router')->pathFor('homepage'));
+        }
+
         // Tableau qui contient toutes les données dont la vue a besoin
         $data = [
             'params' => Flash::has('params') ? Flash::get('params') : [],
