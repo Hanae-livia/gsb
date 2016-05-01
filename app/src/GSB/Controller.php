@@ -23,8 +23,6 @@ class Controller
     {
         // Je stocke le conteneur d'injection de dépendance de Slim dans mon controller
         $this->container = $container;
-
-//        $this->global_data['user'] = 'Toto';
     }
 
     /**
@@ -38,6 +36,12 @@ class Controller
      */
     public function render (Response $response, $filename, $data = [])
     {
+        // Si l'utilisateur est connecté on passe user à la vue
+        if (isset ($_SESSION['user'])) {
+            $this->global_data['user'] = $_SESSION['user'];
+        }
+
+        // Fusionne les global_data avec les data du controller fils
         $data = array_replace_recursive($this->global_data, $data);
 
         return $this->container->view->render($response, $filename, $data);
