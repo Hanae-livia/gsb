@@ -2,6 +2,8 @@
 
 require '../vendor/autoload.php';
 
+session_start();
+
 // Define slim settings
 $settings = require '../app/settings.php';
 
