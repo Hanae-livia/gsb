@@ -16,4 +16,14 @@ $app->post('/login', 'GSB\Controller\Authentication:login')->setName('login');
  */
 $app->group('/dashboard', function () {
     $this->get('', 'GSB\Controller\Pages:index')->setName('homepage');
+})->add(function (\Slim\Http\Request $request, \Slim\Http\Response $response, $next) {
+    if (empty($_SESSION['user'])) {
+        return $response->withRedirect($this->get('router')->pathFor('login_page'));
+    }
+
+    // Si le user est connecté la route est appelée
+    // $next = prochain middleware ou route si il n'y en a pas
+    $response = $next($request, $response);
+
+    return $response;
 });
