@@ -21,5 +21,7 @@ $container['view'] = function ($c) {
      
      // Connexion à la base de données
      $dsn = $settings['driver'] . ':dbname=' . $settings['dbname'] . ';host=' . $settings['host'] . ';charset=' . $settings['charset'];
-     return new PDO($dsn, $settings['username'], $settings['password']);
+     $pdo = new PDO($dsn, $settings['username'], $settings['password']);
+     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+     return $pdo;
  };

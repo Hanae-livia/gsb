@@ -1,0 +1,5 @@
+{% macro alert(message, type) %}
+    {% if message is defined and message is not empty %}
+        <div class="alert alert-{{ type|default('danger') }}">{{ message }}</div>
+    {% endif %}
+{% endmacro %}

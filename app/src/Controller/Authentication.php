@@ -5,6 +5,7 @@ namespace GSB\Controller;
 use GSB\GSB\Controller;
 use GSB\GSB\Flash;
 use GSB\GSB\Validator;
+use GSB\Model\User;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -59,21 +60,34 @@ class Authentication extends Controller
 
         // Vérification de la validité du formulaire
         if ($validator->check()) {
+            $user_model = new User($this->container);
+            $user       = $user_model->findUserByUsernameAndPassword($params['inputUser'], $params['inputPassword']);
 
+            if ($user) {
+                // Destructin du mot de passe (sécurité)
+                unset ($user['mot_de_passe']);
+
+                // Récupération des informations relative à l'utilisateur connecté
+                // dans la session
+                $_SESSION['user'] = $user;
+
+                // Redirection
+                return $response->withRedirect($router->pathFor('homepage'));
+            }
+            else {
+                $errors = [
+                    'global' => 'Identifiants incorrects'
+                ];
+            }
         }
         else {
             $errors = $validator->getErrors();
-
-            Flash::set('params', $params);
-            Flash::set('errors', $errors);
-
-
-            return $response->withRedirect($router->pathFor('login_page'));
-//            $sql = "SELECT `identifiant`,`mot_de_passe` FROM `utilisateur` WHERE `identifiant`, `mot_de_passe`";
         }
 
-        // Vérification des champs vide / pas vide
-        // Si c'est bon : requete DB pour le chercher avec le where
-//        return $response->withJson($result);
+        Flash::set('params', $params);
+        Flash::set('errors', $errors);
+
+        return $response->withRedirect($router->pathFor('login_page'));
+
     }
 }
