@@ -1,10 +1,23 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Homepage</title>
-</head>
-<body>
-<h1>Coucou {{ user.nom }}</h1>
-</body>
-</html>
+{% extends "Layout/layout.twig" %}
+
+{% block stylesheet %}
+    <link href="/css/pages/homepage.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <section id="userspace-content">
+        <h2>Mes informations personnelles</h2>
+        <div class="row">
+            <div class="col-md-2">
+                <img src="img/avatar.jpg" alt=""/>
+            </div>
+            <div class="col-md-10">
+                <h3>{{ user.nom }} {{ user.prenom }} | {{ user.statut }}</h3>
+                <p><span class="glyphicon glyphicon-user"></span> Matricule : {{ user.matricule }}</p>
+                <p><span class="glyphicon glyphicon-calendar"></span> Date d'embauche : {{ user.date_embauche }}</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span> Adresse : {{ user.adresse }}, {{ user.cp }}, {{ user.ville }}</p>
+            </div>
+        </div>
+    </section>
+    <h1>Mes statistiques</h1>
+{% endblock %}
