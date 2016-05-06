@@ -1,0 +1,33 @@
+{% extends "Layout/layout.twig" %}
+
+{% set activePage = 'product_list' %}
+
+{% block stylesheet %}
+    <link href="/css/pages/product.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <h2>Catalogue des produits</h2>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-4 col-md-3">
+                <div class="thumbnail">
+                    <img src="/img/product-img.png" alt="">
+                    <div class="caption">
+                        <h3>{{ product.nom_commercial }}  <span class="ref_produit">(ref.{{ product.reference }})</span></h3>
+                        <h4>Cas d'utilisation</h4>
+                        <p>{{ product.effets_indesirables }}</p>
+                        <h4>Contre indications</h4>
+                        <p>{{ product.contre_indications }}</p>
+                        <h4>Composition</h4>
+                        <ul>
+                            {% for composant in product.composants %}
+                                <li>{{ composant.libelle }} ({{ composant.quantite }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
