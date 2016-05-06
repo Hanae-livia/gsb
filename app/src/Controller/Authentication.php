@@ -95,4 +95,20 @@ class Authentication extends Controller
         return $response->withRedirect($router->pathFor('login_page'));
 
     }
+
+    /**
+     *
+     *
+     * @param Request $request
+     * @param Response $response
+     *
+     * @return Response
+     */
+    public function logout (Request $request, Response $response) {
+        $router = $this->container->get('router');
+
+        session_destroy();
+
+        return $response->withRedirect($router->pathFor('login_page'));
+    }
 }

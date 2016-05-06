@@ -1,51 +1,68 @@
+html,
 body {
-	background: url('../../img/molecules.jpg') no-repeat;
-        -webkit-background-size: cover;
-        background-size: cover;
+    height: 100%;
+}
+
+body > .container,
+body > .container > .row,
+body > .container > .row > .col-login {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    background: url('../../img/molecules.jpg') no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
 }
 
 .login-box {
-	margin: 200px auto;
-	padding: 40px;
-	text-align: center;
-	background-color: rgba(255, 255, 255, 0.8);
-	border-radius: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
 }
 
 .logo {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 .logo-bold {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .feedback-left {
-	position: relative;
+    position: relative;
 }
 
 .form-control {
-	border: none;
+    border-color: #E6E7E6;
 }
 
 .form-login {
-	padding-left: 10px;
+    padding-left: 40px;
 }
 
 .btn {
-	padding: 10px;
-	background-color: rgb(25, 80, 128);
-	border: none;
-	border-radius: 2px;
+    padding: 10px;
+    background-color: rgb(25, 80, 128);
+    border: none;
+    border-radius: 2px;
 }
 
-.btn:hover{
-	background-color: rgba(25, 80, 128, 0.8);
+.btn:hover {
+    background-color: rgba(25, 80, 128, 0.8);
 }
 
 .glyphicon {
     position: absolute;
     left: 0;
+    height: calc(100% - 2px);
     padding: 11px 10px;
     border-right: solid #E6E7E6 1px;
     font-size: 90%;
