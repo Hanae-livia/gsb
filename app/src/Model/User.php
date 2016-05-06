@@ -7,7 +7,6 @@ use GSB\GSB\Model;
 
 class User extends Model
 {
-
     /**
      * Récupère dans la base de donnée un utilisateur
      * selon un identifiant et un mot de passe donné
