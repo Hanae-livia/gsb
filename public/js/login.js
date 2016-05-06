@@ -1,20 +1,39 @@
-$(document).ready(function() {
-    $('#form_login').on('submit', function() {
+$(document).ready(function () {
+    $('#form_login').on('submit', function () {
         var username = $('#inputUser'),
-            password = $('#inputPassword');
+            usernameGroup = username.parent(),
+            password = $('#inputPassword'),
+            passwordGroup = password.parent(),
+            formGroup = $('.form-group');
+
+        // Suppression des erreurs
+        formGroup.removeClass('has-error');
+        formGroup.prev('.alert').remove();
 
         if (username.val() === '') {
-            username.parent().addClass('has-error');
+            usernameGroup.addClass('has-error');
+            usernameGroup.before(
+                $('<div />', {class: 'alert alert-danger', text: 'L\'identifiant est obligatoire'})
+            );
         }
         if (password.val() === '') {
-            password.parent().addClass('has-error');
+            passwordGroup.addClass('has-error');
+            passwordGroup.before(
+                $('<div />', {class: 'alert alert-danger', text: 'Le mot de passe est obligatoire'})
+            );
         }
 
-        if (username.val() !== '' && password.val() !== '') {
-            return true;
+        return !!(username.val() !== '' && password.val() !== '');
+    });
+
+    $('.form-login').on('keypress', function () {
+        var input = $(this),
+            formGroup = input.parent();
+
+        if (formGroup.hasClass('has-error')) {
+            formGroup.removeClass('has-error');
+            formGroup.prev().remove();
+
         }
-
-        return false;
-    })
-
+    });
 });

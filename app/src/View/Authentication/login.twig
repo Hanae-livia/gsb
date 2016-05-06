@@ -12,32 +12,32 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-md-offset"></div>
-                <div class="col-md-4 login-box">
-                    <h2 class="logo"><span class="logo-bold">GSB</span> Espace visiteurs</h2>
-
-                    {{ Alert.alert(errors.global) }}
-                    <form id="form_login" action="{{ path_for('login') }}" method="post">
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ Alert.alert(errors.inputUser) }}
-                                <div class="form-group feedback-left">
-                                    <input type="text" class="form-control form-login" id="inputUser" name="inputUser" value="{{ params.inputUser|default('') }}">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                </div>
-                                {{ Alert.alert(errors.inputPassword) }}
-                                <div class="form-group feedback-left">
-                                    <input type="password" class="form-control form-login" id="inputPassword" name="inputPassword">
-                                    <span class="glyphicon glyphicon-lock"></span>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">CONNEXION</button>
+                <div class="col-md-4"></div>
+                <div class="col-md-4 col-login">
+                    <div class="login-box">
+                        <h2 class="logo"><span class="logo-bold">GSB</span> Espace membre</h2>
+                        {{ Alert.alert(errors.global) }}
+                        <form id="form_login" action="{{ path_for('login') }}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ Alert.alert(errors.inputUser) }}
+                                    <div class="form-group feedback-left">
+                                        <input type="text" class="form-control form-login" id="inputUser" name="inputUser" value="{{ params.inputUser|default('') }}">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </div>
+                                    {{ Alert.alert(errors.inputPassword) }}
+                                    <div class="form-group feedback-left">
+                                        <input type="password" class="form-control form-login" id="inputPassword" name="inputPassword">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">CONNEXION</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-4"></div>
             </div>
         </div>
         <script src="/lib/jquery/jquery-2.2.3.js"></script>
