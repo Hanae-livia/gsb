@@ -36,6 +36,7 @@ h4 {
 .page-content {
     height: 100%;
     padding: 0;
+    overflow: hidden;
 }
 
 .view-content {
@@ -47,6 +48,7 @@ h4 {
 /* Block Informations personnelles */
 #accountView {
     position: absolute;
+    z-index: 1;
     right: 0;
     width: 300px;
     height: calc(100% - 80px);
