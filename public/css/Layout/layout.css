@@ -1,14 +1,18 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
 
 html,
 body {
     height: 100%;
 }
 
-body>.container-fluid,
-body>.container-fluid>.row {
+body > .container-fluid,
+body > .container-fluid > .row {
     position: relative;
     height: 100%;
+}
+
+h4 {
+    font-weight: 400;
 }
 
 .brand-logo {
@@ -29,10 +33,6 @@ body>.container-fluid>.row {
     font-size: 30px;
 }
 
-#userspace-content {
-    display: none;
-}
-
 .page-content {
     height: 100%;
     padding: 0;
@@ -42,6 +42,83 @@ body>.container-fluid>.row {
     height: calc(100% - 80px);
     padding: 30px;
     overflow-y: auto;
+}
+
+/* Block Informations personnelles */
+#accountView {
+    position: absolute;
+    right: 0;
+    width: 300px;
+    height: calc(100% - 80px);
+    color: #fff;
+    font-weight: 300;
+    background-color: #2A3F54;
+    text-align: center;
+    transform: translateX(100%);
+    transition: 0.5s;
+}
+
+#accountView a {
+    color: #fff;
+}
+
+#accountView.open {
+    transform: translateX(0);
+}
+
+#accountBlock {
+    padding: 17px 0 0 15px;
+}
+
+#accountBlock:hover {
+    background-color: transparent;
+    color: #124364;
+}
+
+#accountBlock:focus {
+    background-color: transparent;
+    color: #124364;
+}
+
+.accountContent {
+    text-align: left;
+}
+
+.accountContent-item {
+    width: 100%;
+    padding: 10px 20px;
+    border-bottom: 1px solid #455c73
+}
+
+.accountContent-item p {
+    margin-left: 40px;
+    margin-top: -25px;
+}
+
+.userBook-link {
+    position: absolute;
+    bottom: 78px;
+    left : 0; ;
+    width: 100%;
+    padding: 25px 0;
+    font-size: 20px;
+    background-color: #3498db;
+}
+
+.img-account {
+    display: block;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.logout-link {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 0;
+    font-size: 20px;
+    background-color: #1abb9c;
 }
 
 /* Menus déroulants */
@@ -55,12 +132,13 @@ body>.container-fluid>.row {
     border: none;
 }
 
-.dropdown-vertical-menu>li>a.navbar-item {
+.dropdown-vertical-menu > li > a.navbar-item {
     padding: 30px 10px 30px 40px;
     color: #fff;
+    font-weight: 300;
 }
 
-.dropdown-vertical-menu>li>a {
+.dropdown-vertical-menu > li > a {
     transition: background-color 0.5s, border-right 0.2s;
 }
 
@@ -68,7 +146,7 @@ body>.container-fluid>.row {
     border-bottom: 1px solid #455c73;
 }
 
-.dropdown-vertical-menu>li>a:hover {
+.dropdown-vertical-menu > li > a:hover {
     position: inherit;
     width: 100%;
     background-color: #455c73;
@@ -82,6 +160,7 @@ body>.container-fluid>.row {
     padding: 0;
     margin: 0;
     height: 100%;
+    font-weight: 300;
     background-color: #2a3f54;
 }
 
@@ -89,7 +168,7 @@ body>.container-fluid>.row {
     border: 0;
 }
 
-.nav>li>a.navbar-item {
+.nav > li > a.navbar-item {
     padding: 30px 10px 30px 30px;
     color: #fff;
     font-size: 18px;
@@ -97,15 +176,15 @@ body>.container-fluid>.row {
     transition: background-color 0.5s, border-right 0.2s;
 }
 
-.nav>li>a.navbar-item:hover {
-     background-color: #455c73;
-     border-right: 6px solid #3498db;
- }
+.nav > li > a.navbar-item:hover {
+    background-color: #455c73;
+    border-right: 6px solid #3498db;
+}
 
-.nav>li>a.navbar-item:focus {
-     background-color: transparent;
+.nav > li > a.navbar-item:focus {
+    background-color: transparent;
     border-bottom: 1px solid #455c73;
- }
+}
 
 .fa {
     padding: 0 15px 0 0;
@@ -126,20 +205,6 @@ body>.container-fluid>.row {
 
 .fa-angle-down {
     padding-left: 10px;
-}
-
-#userspace {
-    padding: 17px 0 0 15px;
-}
-
-#userspace:hover {
-    background-color: transparent;
-    color: #124364;
-}
-
-#userspace:focus {
-    background-color: transparent;
-    color: #124364;
 }
 
 .navbar-default {

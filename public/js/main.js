@@ -1,17 +1,23 @@
 $(document).ready(function () {
     // Gestion de l'affichage de mon compte
-    $('#userspace').on('click', function (e) {
+    $('#accountBlock').on('click', function (e) {
         e.preventDefault();
 
-        var userspaceContent = $('#userspace-content');
+        var accountView = $('#accountView');
 
-        // Si mon compte est visible je le cache ...
-        if (userspaceContent.is(':visible')) {
-            userspaceContent.hide();
+        // Si mon compte a la classe open je l'enlève...
+        if (accountView.hasClass('open')) {
+            accountView.removeClass('open');
         }
-        // ... sinon je l'affiche
+        // ... sinon je l'a rajoute
         else {
-            userspaceContent.show();
+            accountView.addClass('open');
         }
+    });
+
+    $('.view-content').on('click', function () {
+        var accountView = $('#accountView');
+
+        accountView.removeClass('open');
     });
 });
