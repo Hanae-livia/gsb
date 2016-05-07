@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);
+
 html,
 body {
     height: 100%;
@@ -50,9 +52,13 @@ body {
 
 .btn {
     padding: 10px;
-    background-color: rgb(25, 80, 128);
+    background-color: rgb(42, 63, 84);
     border: none;
     border-radius: 2px;
+    font-family: 'Roboto';
+    font-size: 12px;
+    width: 130px;
+    margin-top: 15px;
 }
 
 .btn:hover {

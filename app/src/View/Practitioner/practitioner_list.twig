@@ -1,1 +1,45 @@
+{% extends "Layout/layout.twig" %}
+
 {% set activePage = 'practitioner_list' %}
+
+{% block stylesheet %}
+    <link href="/css/pages/practitioner.css" rel="stylesheet"/>
+{% endblock %}
+{# practitioners : colonnes de la table praticien + type_libelle + specialite_libelle #}
+
+{% block content %}
+    <h2>Liste des praticiens</h2>
+    <div class="row">
+		<table class="table table-condensed">
+			<thead>
+			    <tr>
+				    <th>Nom</th>
+				    <th>Prénom</th>
+				    <th>Adresse</th>
+				    <th style="width: 07%;">Code Postal</th>
+				    <th>Ville</th>
+				    <th style="width: 05%;">Notoriété</th>
+				    <th>Type</th>
+				    <th style="width: 10%;">Spécialité</th>
+			    </tr>
+			    </thead>
+				<tbody>
+					{% for practitioner in practitioners %}
+				      	<tr>
+					        <td>{{ practitioner.nom }}</td>
+					        <td>{{ practitioner.prenom }}</td>
+					        <td>{{ practitioner.adresse }}</td>
+					        <td>{{ practitioner.cp }}</td>
+					        <td>{{ practitioner.ville }}</td>
+					        <td>{{ practitioner.coef_notoriete }}</td>
+					        <td>{{ practitioner.type_libelle }}</td>
+					        <td>{{ practitioner.specialite_libelle }}</td>
+				      	</tr>
+					{% endfor %}
+		    	</tbody>
+		</table>
+			</div>
+    </div>
+
+    
+{% endblock %}

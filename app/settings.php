@@ -9,7 +9,7 @@ return [
             'host' => 'localhost',
             'dbname' => 'gsb',
             'username' => 'root',
-            'password' => '',
+            'password' => 'root',
             'charset'   => 'UTF8'
         ],
         'view' => [
