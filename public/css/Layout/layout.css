@@ -11,14 +11,139 @@ body>.container-fluid>.row {
     height: 100%;
 }
 
-.vertical-menu {
+.brand-logo {
+    display: block;
+    height: 80px;
+    padding-left: 40px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 80px;
+    border-bottom: 1px solid #455c73;
+}
+
+.brand-logo:hover {
+    color: #fff;
+}
+
+.big {
+    font-size: 30px;
+}
+
+#userspace-content {
+    display: none;
+}
+
+.page-content {
+    height: 100%;
+    padding: 0;
+}
+
+.view-content {
+    height: calc(100% - 80px);
     padding: 30px;
+    overflow-y: auto;
+}
+
+/* Menus déroulants */
+
+.dropdown-vertical-menu {
+    position: inherit;
+    float: none;
+    width: 100%;
     margin: 0;
-    height: 1000px;
+    padding: 0;
+    border: none;
+}
+
+.dropdown-vertical-menu>li>a.navbar-item {
+    padding: 30px 10px 30px 40px;
+    color: #fff;
+}
+
+.dropdown-vertical-menu>li>a {
+    transition: background-color 0.5s, border-right 0.2s;
+}
+
+.first {
+    border-bottom: 1px solid #455c73;
+}
+
+.dropdown-vertical-menu>li>a:hover {
+    position: inherit;
+    width: 100%;
+    background-color: #455c73;
+    border-right: 6px solid #3498db;
+
+}
+
+/* Vertical menu */
+
+.vertical-menu {
+    padding: 0;
+    margin: 0;
+    height: 100%;
     background-color: #2a3f54;
 }
 
-.navbar-item {
-    color: #fff;
-    font-size: 20px;
+.navbar {
+    border: 0;
 }
+
+.nav>li>a.navbar-item {
+    padding: 30px 10px 30px 30px;
+    color: #fff;
+    font-size: 18px;
+    border-bottom: 1px solid #455c73;
+    transition: background-color 0.5s, border-right 0.2s;
+}
+
+.nav>li>a.navbar-item:hover {
+     background-color: #455c73;
+     border-right: 6px solid #3498db;
+ }
+
+.nav>li>a.navbar-item:focus {
+     background-color: transparent;
+    border-bottom: 1px solid #455c73;
+ }
+
+.fa {
+    padding: 0 15px 0 0;
+}
+
+.active {
+    background-color: #455c73;
+    border-right: 6px solid #3498db;
+}
+
+/* Navbar-top */
+
+.img-avatar {
+    width: 60px;
+    height: auto;
+    margin-top: 10px;
+}
+
+.fa-angle-down {
+    padding-left: 10px;
+}
+
+#userspace {
+    padding: 17px 0 0 15px;
+}
+
+#userspace:hover {
+    background-color: transparent;
+    color: #124364;
+}
+
+#userspace:focus {
+    background-color: transparent;
+    color: #124364;
+}
+
+.navbar-default {
+    border: none;
+}
+
+

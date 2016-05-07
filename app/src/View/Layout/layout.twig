@@ -7,54 +7,94 @@
     <title>{% block websiteTitle %}Accueil | GSB Espace membre{% endblock %}</title>
 
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
     <link href="/css/Layout/layout.css" rel="stylesheet"/>
 
     {% block stylesheet %}{% endblock %}
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="brand-logo" href=""{{ path_for('homepage') }}"">GSB Espace membre</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a id="userspace" href="{{ path_for('homepage') }}">Bienvenue,<br> {{ user.prenom }} {{ user.nom }}</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 vertical-menu">
+            <a class="brand-logo" href=""{{ path_for('homepage') }}><span class="big">GSB</span> Espace membre</a>
             <div class="navbar">
                 <ul class="nav">
-                    <li><a class="navbar-item" href="{{ path_for('homepage') }}">Accueil</a></li>
-                    <li><a class="navbar-item" href="{{ path_for('homepage') }}">Bilans</a></li>
-                    <li><a class="navbar-item" href="{{ path_for('homepage') }}">Praticiens</a></li>
-                    <li><a class="navbar-item" href="{{ path_for('homepage') }}">Catalogue</a></li>
+                    <li {% if activePage == 'homepage' %}class="active"{% endif%}><a class="navbar-item" href="{{ path_for('homepage') }}"><i class="fa fa-home" aria-hidden="true"></i>Accueil</a></li>
+                    <li class="dropdown">
+                        <a class="navbar-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-text-o" aria-hidden="true"></i>Rapports <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-vertical-menu">
+                            <li><a class="navbar-item first" href="{{ path_for('report_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Saisir un nouveau rapport</a></li>
+                            <li><a class="navbar-item" href="{{ path_for('report_list') }}"><i class="fa fa-eye" aria-hidden="true"></i>Consulter les rapports saisis</a></li>
+                        </ul>
+                    </li>
+                    <li {% if activePage == 'practitioner_list' %}class="active"{% endif%}><a class="navbar-item" href="{{ path_for('practitioner_list') }}"><i class="fa fa-user-md" aria-hidden="true"></i>Praticiens</a></li>
+                    <li {% if activePage == 'product_list' %}class="active"{% endif%}><a class="navbar-item" href="{{ path_for('product_list') }}"><i class="fa fa-database" aria-hidden="true"></i>Produits</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-10">
-            <div class="page-content">
+        <div class="col-md-10 page-content">
+            <header>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <form class="navbar-form" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Rechercher ...">
+                                        </div>
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <img class="img-circle img-avatar" src="/img/avatar.jpg" alt="Avatar de l'utilisateur"/>
+                                </li>
+                                <li class="dropdown">
+                                    <a id="userspace" href="{{ path_for('homepage') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenue,<br> {{ user.prenom }} {{ user.nom }} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i>Informations personnelles</a></li>
+                                        <li><a href="#"><i class="fa fa-book" aria-hidden="true"></i>Manuel d'utilisation</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{{ path_for('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>Déconnexion</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <section id="userspace-content">
+                <h2>Mes informations personnelles</h2>
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="/img/avatar.jpg" alt=""/>
+                    </div>
+                    <div class="col-md-10">
+                        <h3>{{ user.nom }} {{ user.prenom }} | {{ user.statut }}</h3>
+                        <p><span class="glyphicon glyphicon-user"></span> Matricule : {{ user.matricule }}</p>
+                        <p><span class="glyphicon glyphicon-calendar"></span> Date d'embauche : {{ user.date_embauche }}</p>
+                        <p><span class="glyphicon glyphicon-map-marker"></span> Adresse : {{ user.adresse }}, {{ user.cp }}, {{ user.ville }}</p>
+                    </div>
+                </div>
+            </section>
+            <div class="view-content">
                 {% block content %}{% endblock %}
             </div>
         </div>
     </div>
 </div>
 
-<script src="/lib/jquery/jquery-2.2.1.min.js"></script>
+<script src="/lib/jquery/jquery-2.2.3.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 
 </body>
 </html>

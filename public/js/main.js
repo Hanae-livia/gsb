@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Gestion de l'affichage de mon compte
-    $('#userspace').on('click', function () {
-        event.preventDefault();
+    $('#userspace').on('click', function (e) {
+        e.preventDefault();
 
         var userspaceContent = $('#userspace-content');
 
