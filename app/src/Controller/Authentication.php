@@ -46,6 +46,7 @@ class Authentication extends Controller
      */
     public function login (Request $request, Response $response)
     {
+        // On récupère le routeur pour pouvoir rediriger
         $router = $this->container->get('router');
 
         // Doc Slim ==> $_POST
@@ -97,7 +98,7 @@ class Authentication extends Controller
     }
 
     /**
-     *
+     * Déconnecte l'utilisateur de l'application
      *
      * @param Request $request
      * @param Response $response
