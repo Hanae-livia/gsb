@@ -49,7 +49,7 @@ class Validator
                 foreach ($this->rules[$paramName] as $rule => $errorMessage) {
                     switch ($rule) {
                         case 'required':
-                            if (empty($this->params[$paramName])) {
+                            if (empty($this->params[$paramName]) || (is_array($this->params[$paramName]) && empty($this->params[$paramName][0]))) {
                                 $this->errors[$paramName] = $errorMessage;
                             }
                             break;

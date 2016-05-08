@@ -24,6 +24,9 @@ $app->group('/dashboard', function () {
     // Bilan : saisie
     $this->get('/saisie-bilan', 'GSB\Controller\Report:formAdd')->setName('report_add');
 
+    // Bilan : traitement
+    $this->post('/ajout-bilan', 'GSB\Controller\Report:create')->setName('report_create');
+
     // Bilan : historique
     $this->get('/historique-bilans-saisis', 'GSB\Controller\Report:index')->setName('report_list');
 

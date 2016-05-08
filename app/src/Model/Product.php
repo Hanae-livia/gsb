@@ -7,6 +7,8 @@ use GSB\GSB\Model;
 
 class Product extends Model
 {
+    protected $table = 'medicament';
+
     /**
      * Récupère dans la base de donnée la liste de tous les praticiens
      *
