@@ -22,7 +22,7 @@ $app->group('/dashboard', function () {
     $this->get('', 'GSB\Controller\Pages:index')->setName('homepage');
 
     // Bilan : saisie
-    $this->get('/saisie-bilan', 'GSB\Controller\Report:index')->setName('report_add');
+    $this->get('/saisie-bilan', 'GSB\Controller\Report:formAdd')->setName('report_add');
 
     // Bilan : historique
     $this->get('/historique-bilans-saisis', 'GSB\Controller\Report:index')->setName('report_list');
