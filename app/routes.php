@@ -36,6 +36,9 @@ $app->group('/dashboard', function () {
     // Praticiens
     $this->get('/praticiens', 'GSB\Controller\Practitioner:index')->setName('practitioner_list');
 
+    // Documentation
+    $this->get('/documentation', 'GSB\Controller\Documentation:index')->setName('documentation');
+
 })->add(function (\Slim\Http\Request $request, \Slim\Http\Response $response, $next) {
     if (empty($_SESSION['user'])) {
         return $response->withRedirect($this->get('router')->pathFor('login_page'));

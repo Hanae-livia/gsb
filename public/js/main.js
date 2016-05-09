@@ -20,4 +20,9 @@ $(document).ready(function () {
 
         accountView.removeClass('open');
     });
+
+    // Loader
+    $(window).load(function() {
+        $('#loader').fadeOut("1000");
+    });
 });
