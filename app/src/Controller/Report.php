@@ -74,8 +74,8 @@ class Report extends Controller
     public function create (Request $request, Response $response, $args)
     {
         // Récupération du routeur pour la redirection
-        $router = $this->container->get('router');
-        $errors = [];
+        $router  = $this->container->get('router');
+        $errors  = [];
         $success = [];
 
         $params = $request->getParams(); // Données du formulaire
@@ -104,7 +104,7 @@ class Report extends Controller
         // Si il n'y a pas d'erreurs on execute la requête d'insertion ...
         if ($validator->check()) {
             $reportModel = new ReportModel($this->container);
-            $reports = $reportModel->insert($params);
+            $reports     = $reportModel->insert($params);
 
             if ($reports) {
                 $success = 'Le rapport de visite a bien été envoyé';

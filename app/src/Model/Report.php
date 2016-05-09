@@ -8,22 +8,44 @@ use GSB\GSB\Model;
 class Report extends Model
 {
     /**
-     * Récupère dans la base de donnée tous les comptes rendus saisis
+     * Récupère dans la base de donnée le rapport
      *
-     * @return mixed (false si pas trouvé sinon les comptes rendus)
+     * @return mixed (false si pas trouvé sinon le rapport)
      */
-    public function findAll ()
+    public function findOne ($id)
     {
         $userMatricule = $_SESSION['user']['matricule'];
 
         // Requête d'extraction des comptes rendus de visite
-        $sql = 'SELECT bilan.*, utilisateur.*, praticien.*, produit_presente.*, echantillon.*
-                FROM bilan, utilisateur, praticien, produit_presente, echantillon
+        $sql = 'SELECT bilan.*, utilisateur.*, praticien.*, produit_presente.*, echantillon.*, motif.*
+                FROM bilan, utilisateur, praticien, produit_presente, echantillon, motif
                 WHERE utilisateur_matricule = utilisateur.matricule
                 AND praticien_numero = praticien.numero
                 AND bilan.numero = produit_presente.bilan_numero
                 AND bilan.numero = echantillon.bilan_numero
                 AND utilisateur.matricule = ' . $userMatricule . '
+                AND bilan.numero = ' . $id;
+
+        $result = $this->db->query($sql);
+
+        return $result->fetchAll();
+    }
+
+    /**
+     * Récupère dans la bdd les raports selon l'utilisateur connecté
+     *
+     * @return mixed
+     */
+    public function findAll (){
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction des comptes rendus de visite
+        $sql = 'SELECT bilan.numero, bilan.date_visite, praticien.nom, praticien.prenom, motif.libelle
+                FROM bilan, utilisateur, praticien, motif
+                WHERE utilisateur_matricule = utilisateur.matricule
+                AND praticien_numero = praticien.numero
+                AND bilan.motif_id = motif.id
+                AND utilisateur.matricule = ' . $userMatricule .'
                 ORDER BY date_saisie';
 
         $result = $this->db->query($sql);
