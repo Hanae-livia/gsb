@@ -3,9 +3,34 @@
 {% set activePage = 'report_list' %}
 
 {% block stylesheet %}
-    <!--<link href="/css/pages/homepage.css" rel="stylesheet"/>-->
+    <link href="/css/pages/report_list.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
-    <h1>Consulter les bilans</h1>
+    <h2>Historique des bilans saisis</h2>
+
+	<table class="table table-responsive table-hover">
+		<thead>
+		    <tr>
+			    <th>NUMERO</th>
+			    <th>DATE VISITE</th>
+			    <th>PRATICIEN</th>
+			    <th>MOTIF VISITE</th>
+			    <th colspan="2">ACTIONS</th>
+		    </tr>
+	    </thead>
+		<tbody>
+			{% for report in reports %}
+		      	<tr>
+			        <td>{{ report.numero }}</td>
+			        <td>{{ report.date_visite }}</td>
+			        <td>{{ report.nom }}</td>
+			        <td>{{ report.motif_libelle }}</td>
+			        <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+			        <td><i class="fa fa-eye" aria-hidden="true"></i></td>
+		      	</tr>
+			{% endfor %}
+    	</tbody>
+	</table>
+
 {% endblock %}
