@@ -1,47 +1,69 @@
-{% import 'Macros/alert.twig' as Alert  %}
+{% import 'Macros/alert.twig' as Alert %}
 
 <!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Page de connexion</title>
-        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/css/pages/login.css" rel="stylesheet" />
-        <link rel="icon" href="/img/favicon.png"/>
-
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4 col-login">
-                    <div class="login-box">
-                        <h2 class="logo"><span class="logo-bold">GSB</span> Espace membre</h2>
-                        {{ Alert.alert(errors.global) }}
-                        <form id="form_login" action="{{ path_for('login') }}" method="post">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {{ Alert.alert(errors.inputUser) }}
-                                    <div class="form-group feedback-left">
-                                        <input type="text" class="form-control form-login" id="inputUser" name="inputUser" value="{{ params.inputUser|default('') }}">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                    </div>
-                                    {{ Alert.alert(errors.inputPassword) }}
-                                    <div class="form-group feedback-left">
-                                        <input type="password" class="form-control form-login" id="inputPassword" name="inputPassword">
-                                        <span class="glyphicon glyphicon-lock"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">CONNEXION</button>
-                                    </div>
-                                </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Page de connexion</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link href="/css/pages/login.css" rel="stylesheet"/>
+    <link rel="icon" href="/img/favicon.png"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-login">
+            <div class="login-box">
+                <h2 class="logo"><span class="logo-bold">GSB</span> Espace membre</h2>
+                {{ Alert.alert(errors.global) }}
+                <form id="form_login" action="{{ path_for('login') }}" method="post">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ Alert.alert(errors.inputUser) }}
+                            <div class="form-group feedback-left">
+                                <input type="text" class="form-control form-login" id="inputUser" name="inputUser" value="{{ params.inputUser|default('') }}">
+                                <span class="glyphicon glyphicon-user"></span>
                             </div>
-                        </form>
+                            {{ Alert.alert(errors.inputPassword) }}
+                            <div class="form-group feedback-left">
+                                <input type="password" class="form-control form-login" id="inputPassword" name="inputPassword">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">CONNEXION</button>
+                            </div>
+                            <a href="#helpModal" data-toggle="modal">Où trouver mes identifiants ?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="helpModal" class="modal fade" role="dialog" aria-labelledby="Comment se connecter ?">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Aide à la connexion</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Où trouver mes identifiants ?</h5>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> Votre pseudonyme correspond à votre nom suivi de la première lettre de votre prénom. (Exemple : John
+                                DOE, identifiant doej)</p>
+                            <p><i class="fa fa-lock" aria-hidden="true"></i> Votre mot de passe correspond à celui qui vous a été fournis par votre hiérarchie.</p>
+                            <h5>J'ai oublié mon mot de passe</h5>
+                            <p>Pour des raisons de sécurité, nous vous invitons à contacter un administrateur afin qu'il réinitialise votre mot de passe.
+                            <h5>Pour tout autre problème d'accès à l'application veuillez contacter un administrateur.</h5>
+                            <p>tardy.melanie.contact@gmail.com | lefebvre_jerome28@hotmail.fr</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="/lib/jquery/jquery-2.2.3.js"></script>
-        <script src="/js/login.js"></script>
-    </body>
+    </div>
+</div>
+<script src="/lib/jquery/jquery-2.2.3.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/login.js"></script>
+</body>
 </html>

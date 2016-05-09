@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // Vérification de la validité du formulaire
     $('#form_login').on('submit', function () {
         var username = $('#inputUser'),
             usernameGroup = username.parent(),
@@ -26,6 +27,7 @@ $(document).ready(function () {
         return !!(username.val() !== '' && password.val() !== '');
     });
 
+    // Gestion de la classe "has-error"
     $('.form-login').on('keypress', function () {
         var input = $(this),
             formGroup = input.parent();
