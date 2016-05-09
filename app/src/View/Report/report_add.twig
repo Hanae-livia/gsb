@@ -3,98 +3,96 @@
 {% set activePage = 'report_add' %}
 
 {% block stylesheet %}
-    <link href="/css/pages/report_add.css" rel="stylesheet"/>
+<link href="/css/pages/report_add.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
-    <h2>Saisir un bilan</h2>
+<h2>Saisir un bilan</h2>
 
-	<form class="form-horizontal" role="form">
-        <div class='row'>
-            <div class="col-lg-12">
-            <!--<form class="form-horizontal" role="form">-->
-				<div class="form-group">
-					<label for="praticien" class="col-sm-2 control-label">Nom du praticien :</label>
-					<div class="col-sm-6">
-						<select name="praticien" id="praticien">
-							{% for practitioner in practitioners %}
-								<option value="">{{ practitioner.nom }}</option>
-							{% endfor %}
-						</select>
-						<label class="checkbox inline no_indent">
-							<input type="checkbox" id="remplacant" value="remplacant"> Remplaçant
-						</label>
-					</div>
+<form class="form-horizontal" role="form">
+	<div class='row'>
+		<div class="col-lg-12">
+			<!--<form class="form-horizontal" role="form">-->
+			<div class="form-group">
+				<label for="praticien_id" class="col-sm-2 control-label">Nom du praticien :</label>
+				<div class="col-sm-6">
+					<select name="praticien_id" id="praticien_id">
+						{% for practitioner in practitioners %}
+						<option value="{{ practitioner.numero }}">{{ practitioner.nom }} {{ practitioner.prenom }}</option>
+						{% endfor %}
+					</select>
+					<label class="checkbox inline no_indent">
+						<input type="checkbox" id="remplacant" value="remplacant"> Remplaçant
+					</label>
 				</div>
-                <div class="form-group">
-					<label for="date" class="col-sm-2 control-label">Date de saisie :</label>
-					<div class="col-sm-8">
-						<input type="text" class="form-control" name="date;" id="date">
-					</div>
+			</div>
+			<div class="form-group">
+				<label for="visit_date" class="col-sm-2 control-label">Date de saisie :</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="visit_date;" id="visit_date">
 				</div>
-				<div class="form-group">
-					<label for="impact" class="col-sm-2 control-label">Impact de la visite :</label>
-					<div class="col-sm-6">
-						<select name="impact" id="impact">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5" selected>5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-					</div>
+			</div>
+			<div class="form-group">
+				<label for="impact" class="col-sm-2 control-label">Impact de la visite :</label>
+				<div class="col-sm-6">
+					<select name="impact" id="impact">
+						{% for i in 1..10 %}
+						<option value="{{ i }}">{{ i }}</option>
+						{% endfor %}
+					</select>
 				</div>
-				<div class="form-group" >
-					<label for="remarque" class="col-sm-2 control-label">Remarque :</label>
-					<div class="col-sm-8">
-						<textarea name="remarque" id="remarque" placeholder:"Ecrivez vos remarques ici ..."></textarea>
-					</div>
+			</div>
+			<div class="form-group" >
+				<label for="comment" class="col-sm-2 control-label">Remarque :</label>
+				<div class="col-sm-8">
+					<textarea name="comment" id="comment" row="8" cols="50"></textarea>
 				</div>
-				<div class="form-group">
-					<label for="motif" class="col-sm-2 control-label">Motif :</label>
-					<div class="col-sm-6">
-						<select name="motif" id="motif">
-							<option value="1" selected>motif1</option>
-							<option value="2">motif2</option>
-							<option value="3">motif3</option>
-							<option value="4">motif4</option>
-							<option value="5">motif5</option>
-							<option value="6">motif6</option>
-						</select>
-					</div>
+			</div>
+			<div class="form-group">
+				<label for="motif_id" class="col-sm-2 control-label">Motif :</label>
+				<div class="col-sm-6">
+					<select name="motif_id" id="motif_id">
+						{% for motif in motifs %}
+						<option value="{{ motif.id }}" selected>{{ motif.libelle }}</option>
+						{% endfor %}
+					</select>
 				</div>
-				<div class="form-group">
-					<label for="produit" class="col-sm-2 control-label">Produits présentés :</label>
-					<div class="col-sm-6">
-						<select name="produit" id="produit">
-							{% for product in products %}
-								<option value="">{{ product.libelle }}</option>
-							{% endfor %}
-						</select>
-					</div>
+			</div>
+			<div class="form-group">
+				<label for="product_ids[]" class="col-sm-2 control-label">Produits présentés :</label>
+				<div class="col-sm-6">
+					<select name="product_ids[]" id="product_ids[]">
+						{% for product in products %}
+						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
+						{% endfor %}
+					</select>
 				</div>
-				<div class="form-group">
-					<label for="echantillon" class="col-sm-2 control-label">Echantillons donnés :</label>
-					<div class="col-sm-6">
-						<select name="echantillon1" id="echantillon1">
-							{% for product in products %}
-								<option value="">{{ product.libelle }}</option>
-							{% endfor %}
-						</select>
-						<select name="echantillon2" id="echantillon2">
-							{% for product in products %}
-								<option value="">{{ product.libelle }}</option>
-							{% endfor %}
-						</select>
-					</div>
+			</div>
+			<div class="form-group">
+				<label for="sample_ids[]" class="col-sm-2 control-label">Echantillons donnés :</label>
+				<div class="col-sm-6">
+					Echantillon N°1 :
+					<select name="sample_ids[]" id="sample_ids[]1">
+						{% for product in products %}
+						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
+						{% endfor %}
+					</select>
+					<br><br>
+					Echantillon N°2 :
+					<select name="sample_ids[]" id="sample_ids[]2">
+						{% for product in products %}
+						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
+						{% endfor %}
+					</select>
 				</div>
-		</div>
-                                            
+			</div>
+		</div>		
 	</div>
+	<div class="form-group">
+		<div class="col-sm-6">
+			<input type="submit" name="submit" id="submit" value="Valider">
+		</div>
+	</div>
+</form>
 
 {% endblock %}
