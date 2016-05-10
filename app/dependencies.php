@@ -8,7 +8,7 @@ $container['view'] = function ($c) {
         'cache' => $c->get('settings')['view']['twig']['cache']
     ]);
     
-    // Ajout extension à l'obj view
+    // Ajout extension Twig à l'obj view
     $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $c['request']->getUri()));
     $view->addExtension(new Twig_Extension_Debug());
     

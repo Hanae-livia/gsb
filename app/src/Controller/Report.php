@@ -88,11 +88,26 @@ class Report extends Controller
 
             // Ajout des 2 medicaments precedents dans le rapport
             // indexe avec la reference du medicament pour eviter les doublons
-            $current_report['products'][$product['reference']] = $product;
-            $current_report['samples'][$sample['reference']]  = $sample;
+            // Si il y des produits présentes on ajoute le tableau contenant les produits
+            if (!empty($product['reference'])) {
+                $current_report['products'][$product['reference']] = $product;
+            }
+
+            // Si il y des echantillons on ajoute le tableau contenant les echantillons
+            if (!empty($sample['reference'])) {
+                $current_report['samples'][$sample['reference']] = $sample;
+            }
 
             // Ajout du rapport reconstruit dans le rapport a retourner a la vue
             $report = $current_report;
+        }
+
+        // Si le rapport est vide on redirige vers la vue des rapports
+        if (empty($report)) {
+            // Récupération du routeur pour récupérer la route
+            $router = $this->container->get('router');
+
+            return $response->withRedirect($router->pathFor('report_list'));
         }
 
         return $this->render($response, 'Report/report_view.twig', [

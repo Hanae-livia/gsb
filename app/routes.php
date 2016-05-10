@@ -27,14 +27,17 @@ $app->group('/dashboard', function () {
     // Bilan : traitement
     $this->post('/ajout-bilan', 'GSB\Controller\Report:create')->setName('report_create');
 
-    // Bilan : historique
-    $this->get('/historique-bilans-saisis', 'GSB\Controller\Report:index')->setName('report_list');
+    // Bilan : consultation
+    $this->get('/consultation-rapports', 'GSB\Controller\Report:index')->setName('report_list');
+
+    // Bilan : view
+    $this->get('/rapport/{report_id}', 'GSB\Controller\Report:view')->setName('report_view');
 
     // Catalogue médicaments
-    $this->get('/catalogue-medicaments', 'GSB\Controller\Product:index')->setName('product_list');
+    $this->get('/consultation-produits', 'GSB\Controller\Product:index')->setName('product_list');
 
     // Praticiens
-    $this->get('/praticiens', 'GSB\Controller\Practitioner:index')->setName('practitioner_list');
+    $this->get('/consultation-praticiens', 'GSB\Controller\Practitioner:index')->setName('practitioner_list');
 
 })->add(function (\Slim\Http\Request $request, \Slim\Http\Response $response, $next) {
     if (empty($_SESSION['user'])) {

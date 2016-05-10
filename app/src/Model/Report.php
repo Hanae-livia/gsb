@@ -44,7 +44,7 @@ class Report extends Model
 
         $result = $this->db->query($sql);
 
-        return $result->fetchAll();
+        return $result ? $result->fetchAll() : [];
     }
 
     /**
@@ -71,7 +71,7 @@ class Report extends Model
 
         $result = $this->db->query($sql);
 
-        return $result->fetchAll();
+        return $result ? $result->fetchAll() : [];
     }
 
     /**
@@ -90,9 +90,9 @@ class Report extends Model
                 AND utilisateur.matricule = ' . $userMatricule;
 
         $query  = $this->db->query($sql);
-        $result = $query->fetch();
+        $result = $query ? $query->fetch() : ['total' => 0];
 
-        return (int)$result['total'];
+        return (int) $result['total'];
     }
 
     /**

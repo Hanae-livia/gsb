@@ -192,7 +192,7 @@ h4 {
     padding: 0 15px 0 0;
 }
 
-.active {
+.nav > .active {
     background-color: #455c73;
     border-right: 6px solid #3498db;
 }
@@ -212,5 +212,6 @@ h4 {
 .navbar-default {
     border: none;
 }
+
 
 

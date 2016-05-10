@@ -7,30 +7,56 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Historique des bilans saisis</h2>
-
-	<table class="table table-responsive table-hover">
-		<thead>
-		    <tr>
-			    <th>NUMERO</th>
-			    <th>DATE VISITE</th>
-			    <th>PRATICIEN</th>
-			    <th>MOTIF VISITE</th>
-			    <th colspan="2">ACTIONS</th>
-		    </tr>
-	    </thead>
-		<tbody>
-			{% for report in reports %}
-		      	<tr>
-			        <td>{{ report.numero }}</td>
-			        <td>{{ report.date_visite }}</td>
-			        <td>{{ report.nom }}</td>
-			        <td>{{ report.motif_id }}</td>
-			        <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
-			        <td><i class="fa fa-eye" aria-hidden="true"></i></td>
-		      	</tr>
-			{% endfor %}
-    	</tbody>
-	</table>
-
+    <div class="page-header">
+        <h3>CONSULTATION
+            <small> Des rapports de visite saisis</small>
+        </h3>
+    </div>
+    <table class="table table-responsive table-hover">
+        <thead>
+        <tr>
+            <th>NUMERO</th>
+            <th>DATE VISITE</th>
+            <th>PRATICIEN</th>
+            <th>MOTIF VISITE</th>
+            <th>ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td>{{ report.numero }}</td>
+                <td>{{ report.date_visite }}</td>
+                <td>{{ report.nom }}</td>
+                <td>{{ report.motif_libelle }}</td>
+                <td><a href="{{ path_for('report_view', { report_id: report.numero }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <nav class="text-center">
+        <ul class="pagination">
+            <li class="{{ pagination.previous ? '' : 'disabled' }}">
+                {% if pagination.previous %}
+                    <a href="{{ path_for('report_list') }}?page={{ pagination.current - 1 }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                {% else %}
+                    <span aria-hidden="true">&laquo;</span>
+                {% endif %}
+            </li>
+            {% for i in 1..pagination.nbPage %}
+                <li class="{{ pagination.current == i ? 'active' : '' }}"><a href="{{ path_for('report_list') }}?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            <li class="{{ pagination.next ? '' : 'disabled' }}">
+                {% if pagination.next %}
+                    <a href="{{ path_for('report_list') }}?page={{ pagination.current + 1 }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                {% else %}
+                    <span aria-hidden="true">&raquo;</span>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
 {% endblock %}
