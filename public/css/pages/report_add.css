@@ -1,0 +1,17 @@
+#visit_date {
+	width: 120px;
+}
+
+#comment {
+	height: 100px;
+	width: 600px; 
+}
+
+#impact {
+	height: 40px;
+	width: 70px;
+}
+
+#praticien_id, #motif_id, #product_ids, #sample_ids1, #sample_ids2 {
+	width: 220px;
+}

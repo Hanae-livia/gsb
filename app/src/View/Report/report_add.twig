@@ -9,21 +9,23 @@
 {% block content %}
 <h2>Saisir un bilan</h2>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" method="post" action="{{ path_for('report_create') }}">
 	<div class='row'>
 		<div class="col-lg-12">
 			<!--<form class="form-horizontal" role="form">-->
-			<div class="form-group">
-				<label for="praticien_id" class="col-sm-2 control-label">Nom du praticien :</label>
-				<div class="col-sm-6">
-					<select name="praticien_id" id="praticien_id">
-						{% for practitioner in practitioners %}
-						<option value="{{ practitioner.numero }}">{{ practitioner.nom }} {{ practitioner.prenom }}</option>
-						{% endfor %}
-					</select>
-					<label class="checkbox inline no_indent">
-						<input type="checkbox" id="remplacant" value="remplacant"> Remplaçant
-					</label>
+			<div class="row">
+				<div class="form-group">
+					<label for="praticien_id" class="col-sm-2 control-label">Nom du praticien :</label>
+					<div class="col-lg-6">
+						<select class ="form-control inline" name="praticien_id" id="praticien_id">
+							{% for practitioner in practitioners %}
+							<option value="{{ practitioner.numero }}">{{ practitioner.nom }} {{ practitioner.prenom }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-lg-6">
+						<input type="checkbox" id="remplacant" value="remplacant"><label for="remplacant">Remplaçant</label>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -35,7 +37,7 @@
 			<div class="form-group">
 				<label for="impact" class="col-sm-2 control-label">Impact de la visite :</label>
 				<div class="col-sm-6">
-					<select name="impact" id="impact">
+					<select class ="form-control" name="impact" id="impact">
 						{% for i in 1..10 %}
 						<option value="{{ i }}">{{ i }}</option>
 						{% endfor %}
@@ -45,13 +47,13 @@
 			<div class="form-group" >
 				<label for="comment" class="col-sm-2 control-label">Remarque :</label>
 				<div class="col-sm-8">
-					<textarea name="comment" id="comment" row="8" cols="50"></textarea>
+					<textarea class ="form-control" name="comment" id="comment"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="motif_id" class="col-sm-2 control-label">Motif :</label>
 				<div class="col-sm-6">
-					<select name="motif_id" id="motif_id">
+					<select class ="form-control" name="motif_id" id="motif_id">
 						{% for motif in motifs %}
 						<option value="{{ motif.id }}" selected>{{ motif.libelle }}</option>
 						{% endfor %}
@@ -61,7 +63,7 @@
 			<div class="form-group">
 				<label for="product_ids[]" class="col-sm-2 control-label">Produits présentés :</label>
 				<div class="col-sm-6">
-					<select name="product_ids[]" id="product_ids[]">
+					<select class ="form-control" name="product_ids[]" id="product_ids">
 						{% for product in products %}
 						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
 						{% endfor %}
@@ -72,14 +74,14 @@
 				<label for="sample_ids[]" class="col-sm-2 control-label">Echantillons donnés :</label>
 				<div class="col-sm-6">
 					Echantillon N°1 :
-					<select name="sample_ids[]" id="sample_ids[]1">
+					<select class ="form-control" name="sample_ids[]" id="sample_ids1">
 						{% for product in products %}
 						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
 						{% endfor %}
 					</select>
 					<br><br>
 					Echantillon N°2 :
-					<select name="sample_ids[]" id="sample_ids[]2">
+					<select class ="form-control" name="sample_ids[]" id="sample_ids2">
 						{% for product in products %}
 						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
 						{% endfor %}
@@ -88,9 +90,10 @@
 			</div>
 		</div>		
 	</div>
+	<br><br>
 	<div class="form-group">
 		<div class="col-sm-6">
-			<input type="submit" name="submit" id="submit" value="Valider">
+			<input class="btn btn-primary pull-right" type="submit" name="submit" id="submit" value="Valider">
 		</div>
 	</div>
 </form>
