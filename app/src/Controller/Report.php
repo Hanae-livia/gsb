@@ -25,11 +25,78 @@ class Report extends Controller
      */
     public function index (Request $request, Response $response, $args)
     {
-        $reportModel = new ReportModel($this->container);
-        $reports     = $reportModel->findAll();
+        $reportModel     = new ReportModel($this->container);
+        $reportCount     = $reportModel->count();
+        $page            = $request->getQueryParam('page', 1);
+        $nbResultPerPage = 2;
+        $nbPage          = ceil($reportCount / $nbResultPerPage);
+        $page            = $page > $nbPage ? $nbPage : $page;
+
+        $limit  = $nbResultPerPage;
+        $offset = ($page - 1) * $nbResultPerPage;
+
+        $reports = $reportModel->findAll($limit, $offset);
 
         return $this->render($response, 'Report/report_list.twig', [
-            'reports' => $reports
+            'reports'    => $reports,
+            'pagination' => [
+                'current'  => $page,
+                'nbPage'   => $nbPage,
+                'previous' => $page > 1,
+                'next'     => $page < $nbPage
+            ]
+        ]);
+    }
+
+    /**
+     * Retourne une vue correspond au bilan donnée en paramètre
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     *
+     * @return Response
+     */
+    public function view (Request $request, Response $response, $args)
+    {
+        $reportModel    = new ReportModel($this->container);
+        $reports_result = $reportModel->findOne($args['report_id']);
+        $report         = [];
+
+        // Reconstruction du tableau résultat
+        foreach ($reports_result as $current_report) {
+            // Creation du produit presente
+            $product = [
+                'reference'      => $current_report['pp_reference'],
+                'nom_commercial' => $current_report['pp_nom']
+            ];
+            // Creation de l'echantillon
+            $sample = [
+                'reference'      => $current_report['eo_reference'],
+                'nom_commercial' => $current_report['eo_nom']
+            ];
+
+            // Suppression des champs inutiles correspondant aux medicament precedemment cree
+            unset($current_report['pp_reference']);
+            unset($current_report['pp_nom']);
+            unset($current_report['eo_reference']);
+            unset($current_report['eo_nom']);
+
+            // Initialisation des 2 tableaux de medicaments
+            $current_report['products'] = !empty($report['products']) ? $report['products'] : [];
+            $current_report['samples']  = !empty($report['samples']) ? $report['samples'] : [];
+
+            // Ajout des 2 medicaments precedents dans le rapport
+            // indexe avec la reference du medicament pour eviter les doublons
+            $current_report['products'][$product['reference']] = $product;
+            $current_report['samples'][$sample['reference']]  = $sample;
+
+            // Ajout du rapport reconstruit dans le rapport a retourner a la vue
+            $report = $current_report;
+        }
+
+        return $this->render($response, 'Report/report_view.twig', [
+            'report' => $report
         ]);
     }
 

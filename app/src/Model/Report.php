@@ -10,6 +10,8 @@ class Report extends Model
     /**
      * Récupère dans la base de donnée le rapport
      *
+     * @param $id
+     *
      * @return mixed (false si pas trouvé sinon le rapport)
      */
     public function findOne ($id)
@@ -17,14 +19,28 @@ class Report extends Model
         $userMatricule = $_SESSION['user']['matricule'];
 
         // Requête d'extraction des comptes rendus de visite
-        $sql = 'SELECT bilan.*, utilisateur.*, praticien.*, produit_presente.*, echantillon.*, motif.*
-                FROM bilan, utilisateur, praticien, produit_presente, echantillon, motif
-                WHERE utilisateur_matricule = utilisateur.matricule
-                AND praticien_numero = praticien.numero
-                AND bilan.numero = produit_presente.bilan_numero
-                AND bilan.numero = echantillon.bilan_numero
-                AND utilisateur.matricule = ' . $userMatricule . '
-                AND bilan.numero = ' . $id;
+        $sql = 'SELECT
+                  bilan.*,
+                  praticien.nom,
+                  praticien.prenom,
+                  praticien.coef_notoriete,
+                  praticien.adresse,
+                  praticien.cp,
+                  praticien.ville,
+                  motif.libelle AS motif,
+                  m1.reference AS pp_reference,
+                  m1.nom_commercial AS pp_nom,
+                  m2.reference AS eo_reference,
+                  m2.nom_commercial AS eo_nom
+                FROM bilan
+                  INNER JOIN praticien ON bilan.praticien_numero = praticien.numero
+                  INNER JOIN motif ON bilan.motif_id = motif.id
+                  LEFT JOIN produit_presente ON bilan.numero = produit_presente.bilan_numero
+                  LEFT JOIN medicament AS m1 ON produit_presente.medicament_reference = m1.reference
+                  LEFT JOIN echantillon ON bilan.numero = echantillon.bilan_numero
+                  LEFT JOIN medicament AS m2 ON echantillon.medicament_reference = m2.reference
+                WHERE bilan.numero = ' . $id . '
+                      AND bilan.utilisateur_matricule = ' . $userMatricule;
 
         $result = $this->db->query($sql);
 
@@ -34,9 +50,13 @@ class Report extends Model
     /**
      * Récupère dans la bdd les raports selon l'utilisateur connecté
      *
+     * @param int $limit
+     * @param int $offset
+     *
      * @return mixed
      */
-    public function findAll (){
+    public function findAll ($limit = 10, $offset = 0)
+    {
         $userMatricule = $_SESSION['user']['matricule'];
 
         // Requête d'extraction des comptes rendus de visite
@@ -45,12 +65,34 @@ class Report extends Model
                 WHERE utilisateur_matricule = utilisateur.matricule
                 AND praticien_numero = praticien.numero
                 AND bilan.motif_id = motif.id
-                AND utilisateur.matricule = ' . $userMatricule .'
-                ORDER BY date_saisie';
+                AND utilisateur.matricule = ' . $userMatricule . '
+                ORDER BY date_saisie
+                LIMIT ' . $offset . ', ' . $limit;
 
         $result = $this->db->query($sql);
 
         return $result->fetchAll();
+    }
+
+    /**
+     * Retourne le nombre de rapport de l'utilisateur
+     *
+     * @return int
+     */
+    public function count ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction des comptes rendus de visite
+        $sql = 'SELECT COUNT(*) AS total
+                FROM bilan, utilisateur
+                WHERE utilisateur_matricule = utilisateur.matricule
+                AND utilisateur.matricule = ' . $userMatricule;
+
+        $query  = $this->db->query($sql);
+        $result = $query->fetch();
+
+        return (int)$result['total'];
     }
 
     /**
