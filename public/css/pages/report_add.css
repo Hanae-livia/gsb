@@ -15,3 +15,8 @@
 #praticien_id, #motif_id, #product_ids, #sample_ids1, #sample_ids2 {
 	width: 220px;
 }
+
+.date_format {
+	font-size: 22px;
+	font-style: italic;
+}
