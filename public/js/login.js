@@ -38,4 +38,9 @@ $(document).ready(function () {
 
         }
     });
+
+    // Loader
+    $(window).load(function() {
+        $('#loader').fadeOut("1000");
+    });
 });

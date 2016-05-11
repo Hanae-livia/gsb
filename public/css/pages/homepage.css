@@ -1,3 +1,30 @@
+/* Loader */
+#loader {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(42, 63, 84, 0.2);
+    text-align: center;
+    cursor: wait;
+}
 
+.loaderMessage {
+    position: absolute;
+    top: 60%;
+    left: 44%;
+    font-size: 20px;
+}
+
+.fa-spinner {
+    position: absolute;
+    display: block;
+    top: 47%;
+    left: 47%;
+    font-size: 100px;
+}
 
 
