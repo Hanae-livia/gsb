@@ -21,6 +21,12 @@ $app->group('/dashboard', function () {
     // Homepage
     $this->get('', 'GSB\Controller\Pages:index')->setName('homepage');
 
+    // Graph
+    $this->group('/chart', function () {
+        $this->get('/global', 'GSB\Controller\Chart:globalStats');
+        $this->get('/txImpact', 'GSB\Controller\Chart:txImpactStats');
+    });
+
     // Bilan : saisie
     $this->get('/saisie-bilan', 'GSB\Controller\Report:formAdd')->setName('report_add');
 

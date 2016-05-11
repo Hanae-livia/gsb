@@ -85,14 +85,13 @@ class Report extends Model
 
         // Requête d'extraction des comptes rendus de visite
         $sql = 'SELECT COUNT(*) AS total
-                FROM bilan, utilisateur
-                WHERE utilisateur_matricule = utilisateur.matricule
-                AND utilisateur.matricule = ' . $userMatricule;
+                FROM bilan
+                WHERE utilisateur_matricule = ' . $userMatricule;
 
         $query  = $this->db->query($sql);
         $result = $query ? $query->fetch() : ['total' => 0];
 
-        return (int) $result['total'];
+        return (int)$result['total'];
     }
 
     /**
@@ -168,5 +167,108 @@ class Report extends Model
         }
 
         return $result;
+    }
+
+    /**
+     * Retourne le nombre de visite effectuées par mois
+     *
+     * @return array
+     */
+    public function countGroupByMonth ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction du nombre de visite par mois
+        $sql = 'SELECT MONTH(date_visite) AS month, COUNT(*) AS total
+                FROM bilan
+                WHERE utilisateur_matricule = ' . $userMatricule . '
+                GROUP BY MONTH(date_visite)
+                ORDER BY date_visite';
+
+        $result = $this->db->query($sql);
+
+        return $result ? $result->fetchAll() : [];
+    }
+
+    /**
+     * Retourne le nombre de produits présentés par mois
+     *
+     * @return array
+     */
+    public function countProductGroupByMonth ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction du nombre de produits présentés par mois
+        $sql = 'SELECT MONTH(date_visite) AS month, COUNT(*) AS total
+                FROM bilan
+                LEFT JOIN produit_presente ON bilan.numero = produit_presente.bilan_numero
+                WHERE utilisateur_matricule = ' . $userMatricule . '
+                GROUP BY MONTH(date_visite)
+                ORDER BY date_visite';
+
+        $result = $this->db->query($sql);
+
+        return $result ? $result->fetchAll() : [];
+    }
+
+    /**
+     * Retourne le nombre d'échantillons offerts par mois
+     *
+     * @return array
+     */
+    public function countSampleGroupByMonth ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction du nombre d'echantillons offerts par mois
+        $sql = 'SELECT MONTH(date_visite) AS month, COUNT(*) AS total
+                FROM bilan
+                LEFT JOIN echantillon ON bilan.numero = echantillon.bilan_numero
+                WHERE utilisateur_matricule = ' . $userMatricule . '
+                GROUP BY MONTH(date_visite)
+                ORDER BY date_visite';
+
+        $result = $this->db->query($sql);
+
+        return $result ? $result->fetchAll() : [];
+    }
+
+    /**
+     * Retourne la moyenne de la valeur du tx d'impact par mois
+     *
+     * @return array
+     */
+    public function calcTxImpactGroupByMonth ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        $sql = 'SELECT MONTH(date_visite) AS month, ROUND(AVG(impact)) AS moyImpact
+                FROM bilan
+                WHERE utilisateur_matricule = ' . $userMatricule . '
+                GROUP BY MONTH(date_visite)
+                ORDER BY date_visite';
+
+        $result = $this->db->query($sql);
+
+        return $result ? $result->fetchAll() : [];
+    }
+
+    /**
+     * Retourne la moyenne de la valeur du tx d'impact par mois
+     * de tous les visiteurs
+     *
+     * @return array
+     */
+    public function calcMoyImpactAllGroupByMonth ()
+    {
+        $sql = 'SELECT MONTH(date_visite) AS month, ROUND(AVG(impact)) AS moyImpact
+                FROM bilan
+                GROUP BY MONTH(date_visite)
+                ORDER BY date_visite';
+
+        $result = $this->db->query($sql);
+
+        return $result ? $result->fetchAll() : [];
     }
 } 

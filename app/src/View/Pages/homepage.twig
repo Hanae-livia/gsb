@@ -6,6 +6,20 @@
     <link href="/css/pages/homepage.css" rel="stylesheet"/>
 {% endblock %}
 
+{% block script %}
+    <script src="/lib/chart-js/Chart.js"></script>
+    <script src="/js/home.js"></script>
+{% endblock %}
+
 {% block content %}
     <h2>Mes statistiques</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="globalChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="txImpactChart"></canvas>
+        </div>
+    </div>
+
 {% endblock %}
