@@ -16,22 +16,21 @@
 			<div class="row">
 				<div class="form-group">
 					<label for="praticien_id" class="col-sm-2 control-label">Nom du praticien :</label>
-					<div class="col-lg-6">
+					<div class="col-sm-6">
 						<select class ="form-control inline" name="praticien_id" id="praticien_id">
 							{% for practitioner in practitioners %}
 							<option value="{{ practitioner.numero }}">{{ practitioner.nom }} {{ practitioner.prenom }}</option>
 							{% endfor %}
 						</select>
+												<input type="checkbox" id="remplacant" value="remplacant"> Remplaçant
 					</div>
-					<div class="col-lg-6">
-						<input type="checkbox" id="remplacant" value="remplacant"><label for="remplacant">Remplaçant</label>
-					</div>
+
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="visit_date" class="col-sm-2 control-label">Date de saisie :</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" name="visit_date;" id="visit_date">
+					<input type="text" class="form-control" name="visit_date;" id="visit_date" placeholder="jj/mm/aaaa">
 				</div>
 			</div>
 			<div class="form-group">
@@ -47,7 +46,7 @@
 			<div class="form-group" >
 				<label for="comment" class="col-sm-2 control-label">Remarque :</label>
 				<div class="col-sm-8">
-					<textarea class ="form-control" name="comment" id="comment"></textarea>
+					<textarea class ="form-control" name="comment" id="comment" placeholder="Entrez vos remarques ici ..."></textarea>
 				</div>
 			</div>
 			<div class="form-group">
