@@ -61,7 +61,6 @@ class Report extends Controller
     {
         $reportModel    = new ReportModel($this->container);
         $reports_result = $reportModel->findOne($args['report_id']);
-<<<<<<< Updated upstream
         $report         = [];
 
         // Reconstruction du tableau résultat
@@ -113,34 +112,6 @@ class Report extends Controller
 
         return $this->render($response, 'Report/report_view.twig', [
             'report' => $report
-=======
-        $reports        = [];
-
-//        // Reconstruction du tableau résultat
-//        foreach ($reports_result as $report) {
-//
-//            // Récupération du produit présenté courant
-//            $present_product = [
-//                'bilan_numero'      => $report['bilan_numero'],
-//                'reference_product' => $report['medicament_reference']
-//            ];
-//            // Suppression du produit présenté courant
-//            unset($report['bilan_numero']);
-//            unset($report['medicament_reference']);
-//
-//            // Si le produit existe déjà dans le tableau rapport
-//            // on les récupère
-//            // sinon on laisse un tableau vide
-//            $report['presents_product'] = isset($reports[$report['report_id']]) ?
-//                $reports[$report['report_id']] : [];
-//
-//            // Remplissage du tableau des produits présentés
-//            $reports[$report['report_id']] = $report;
-//        }
-
-        return $this->render($response, 'Report/report_view.twig', [
-            'report' => $reports
->>>>>>> Stashed changes
         ]);
     }
 
