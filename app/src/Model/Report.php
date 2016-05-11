@@ -19,6 +19,7 @@ class Report extends Model
         $userMatricule = $_SESSION['user']['matricule'];
 
         // Requête d'extraction des comptes rendus de visite
+<<<<<<< Updated upstream
         $sql = 'SELECT
                   bilan.*,
                   praticien.nom,
@@ -41,6 +42,22 @@ class Report extends Model
                   LEFT JOIN medicament AS m2 ON echantillon.medicament_reference = m2.reference
                 WHERE bilan.numero = ' . $id . '
                       AND bilan.utilisateur_matricule = ' . $userMatricule;
+=======
+        $sql = 'SELECT bilan.*, praticien.nom AS nom_praticien, praticien.prenom AS prenom_praticien, motif.libelle AS libelle_motif,
+        medicament.nom_commercial AS nom_produit, medicament.reference AS ref_produit,
+        specialite.libelle AS libelle_spe, type.libelle AS libelle_type
+                FROM bilan, praticien, produit_presente, echantillon, motif, medicament, specialite, type
+                WHERE praticien_numero = praticien.numero
+                AND bilan.numero = produit_presente.bilan_numero
+                AND bilan.numero = echantillon.bilan_numero
+                AND medicament.reference = echantillon.medicament_reference
+                AND medicament.reference = produit_presente.medicament_reference
+                AND praticien.specialite_id = specialite.id
+                AND praticien.type_id = type.id
+                AND bilan.motif_id = motif.id
+                AND bilan.utilisateur_matricule = ' . $userMatricule . '
+                AND bilan.numero = ' . $id;
+>>>>>>> Stashed changes
 
         $result = $this->db->query($sql);
 
@@ -90,6 +107,27 @@ class Report extends Model
 
         $query  = $this->db->query($sql);
         $result = $query ? $query->fetch() : ['total' => 0];
+
+        return (int)$result['total'];
+    }
+
+    /**
+     * Retourne le nombre de rapport de l'utilisateur
+     *
+     * @return int
+     */
+    public function count ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction des comptes rendus de visite
+        $sql = 'SELECT COUNT(*) AS total
+                FROM bilan, utilisateur
+                WHERE utilisateur_matricule = utilisateur.matricule
+                AND utilisateur.matricule = ' . $userMatricule;
+
+        $query  = $this->db->query($sql);
+        $result = $query->fetch();
 
         return (int)$result['total'];
     }
