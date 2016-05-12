@@ -4,7 +4,7 @@
  */
 
 // Page contenant le formulaire de connexion à l'application
-$app->get('/', 'GSB\Controller\Authentication:index')->setName('login_page');
+$app->get('/connexion', 'GSB\Controller\Authentication:index')->setName('login_page');
 
 // Page de traitement du formulaire de connexion
 $app->post('/login', 'GSB\Controller\Authentication:login')->setName('login');

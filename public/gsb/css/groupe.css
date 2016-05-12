@@ -1,0 +1,17 @@
+.item {
+	float: left;
+	padding: 20px;
+}
+
+.itemContent {
+	font-size: 16px;
+	line-height: 3px;
+}
+
+.leadership {
+	background-color: #E2DFDF;
+}
+
+.presentationContent {
+	padding: 20px;
+}
