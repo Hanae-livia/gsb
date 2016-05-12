@@ -24,14 +24,14 @@
                     <li {% if activePage == 'homepage' %}class="active"{% endif %}><a class="navbar-item" href="{{ path_for('homepage') }}"><i class="fa fa-home"
                                                                                                                                                aria-hidden="true"></i>Accueil</a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown {{ activePage == 'report_add' or activePage == 'report_list' ? 'open' : '' }}">
                         <a class="navbar-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-text-o"
                                                                                                                                                   aria-hidden="true"></i>Rapports
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-vertical-menu">
-                            <li><a class="navbar-item first" href="{{ path_for('report_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Nouveau
+                            <li {% if activePage == 'report_add' %}class="active"{% endif %}><a class="navbar-item first" href="{{ path_for('report_add') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Nouveau
                                     rapport</a></li>
-                            <li><a class="navbar-item" href="{{ path_for('report_list') }}"><i class="fa fa-eye" aria-hidden="true"></i>Rapports saisis</a></li>
+                            <li {% if activePage == 'report_list' %}class="active"{% endif %}><a class="navbar-item" href="{{ path_for('report_list') }}"><i class="fa fa-eye" aria-hidden="true"></i>Rapports saisis</a></li>
                         </ul>
                     </li>
                     <li {% if activePage == 'practitioner_list' %}class="active"{% endif %}><a class="navbar-item" href="{{ path_for('practitioner_list') }}"><i
