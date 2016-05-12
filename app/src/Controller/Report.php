@@ -25,10 +25,11 @@ class Report extends Controller
      */
     public function index (Request $request, Response $response, $args)
     {
-        $reportModel     = new ReportModel($this->container);
+        $reportModel = new ReportModel($this->container);
+
         $reportCount     = $reportModel->count();
         $page            = $request->getQueryParam('page', 1);
-        $nbResultPerPage = 2;
+        $nbResultPerPage = 15;
         $nbPage          = ceil($reportCount / $nbResultPerPage);
         $page            = $page > $nbPage ? $nbPage : $page;
 
@@ -44,7 +45,7 @@ class Report extends Controller
                 'nbPage'   => $nbPage,
                 'previous' => $page > 1,
                 'next'     => $page < $nbPage
-            ]
+            ],
         ]);
     }
 
@@ -139,7 +140,9 @@ class Report extends Controller
         return $this->render($response, 'Report/report_add.twig', [
             'practitioners' => $practitioners,
             'motifs'        => $motifs,
-            'products'      => $products
+            'products'      => $products,
+            'params' => Flash::has('params') ? Flash::get('params') : [],
+            'errors' => Flash::has('errors') ? Flash::get('errors') : []
         ]);
     }
 
@@ -162,7 +165,7 @@ class Report extends Controller
 
         $params = $request->getParams(); // Données du formulaire
 
-        // On vérifier la validité des champs
+        // On vérifie la validité des champs
         $validator = new Validator($params);
 
         $validator->addRules([
@@ -186,14 +189,14 @@ class Report extends Controller
         // Si il n'y a pas d'erreurs on execute la requête d'insertion ...
         if ($validator->check()) {
             $reportModel = new ReportModel($this->container);
-            $reports     = $reportModel->insert($params);
+            $report_id     = $reportModel->insert($params);
 
-            if ($reports) {
-                $success = 'Le rapport de visite a bien été envoyé';
+            if ($report_id !== false) {
+                return $response->withRedirect($router->pathFor('report_view', ['report_id' => $report_id]));
             }
             else {
                 $errors = [
-                    'global' => 'Une erreur est survenue lors de l\'exécution de la requête. Le rapport n\'a pas été envoyé'
+                    'global' => 'Une erreur est survenue lors de l\'exécution de la requête. Le rapport n\'a pas pu être envoyé'
                 ];
             }
         }
@@ -203,7 +206,7 @@ class Report extends Controller
         }
 
         Flash::set('success', $success);
-        Flash::has('errors', $errors);
+        Flash::set('errors', $errors);
 
         // Redirection vers la page du formulaire
         return $response->withRedirect($router->pathFor('report_add'));

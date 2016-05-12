@@ -9,7 +9,7 @@
 {% block content %}
     <div class="page-header">
         <h3>CONSULTATION
-            <small> Des rapports de visite saisis</small>
+            <small> Rapports de visite précedemment saisis</small>
         </h3>
     </div>
     <table class="table table-responsive table-hover">
@@ -26,9 +26,9 @@
         {% for report in reports %}
             <tr>
                 <td>{{ report.numero }}</td>
-                <td>{{ report.date_visite }}</td>
+                <td>{{ report.date_visite|date("d/m/Y") }}</td>
                 <td>{{ report.nom }}</td>
-                <td>{{ report.motif_libelle }}</td>
+                <td>{{ report.libelle }}</td>
                 <td><a href="{{ path_for('report_view', { report_id: report.numero }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
             </tr>
         {% endfor %}
@@ -55,7 +55,7 @@
                     </a>
                 {% else %}
                     <span aria-hidden="true">&raquo;</span>
-                {% endif %}
+            {% endif %}
             </li>
         </ul>
     </nav>

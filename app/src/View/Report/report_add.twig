@@ -1,100 +1,156 @@
 {% extends "Layout/layout.twig" %}
+{% import 'Macros/alert.twig' as Alert %}
 
 {% set activePage = 'report_add' %}
 
 {% block stylesheet %}
-<link href="/css/pages/report_add.css" rel="stylesheet"/>
+    <link href="/css/pages/report_add.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
-<h2>Saisir un bilan</h2>
+    <div class="page-header">
+        <h3>AJOUT
+            <small> Nouveau rapport de visite</small>
+        </h3>
+    </div>
+    <form class="form-horizontal" role="form" method="post" action="{{ path_for('report_create') }}">
+        {% if errors is defined and errors is not empty %}
+            <div class="alert alert-danger">
+                {% for error in errors %}
+                    {{ error }}<br/>
+                {%  endfor %}
+            </div>
+        {% endif %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-suitcase" aria-hidden="true"></i> Informations visite</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Date de la visite -->
+                        <div class="form-group">
+                            <label for="visit_date" class="col-sm-3 control-label">Visite effectuée le </label>
 
-<form class="form-horizontal" role="form" method="post" action="{{ path_for('report_create') }}">
-	<div class='row'>
-		<div class="col-lg-12">
-			<!--<form class="form-horizontal" role="form">-->
-			<div class="row">
-				<div class="form-group">
-					<label for="praticien_id" class="col-sm-2 control-label">Nom du praticien :</label>
-					<div class="col-sm-6">
-						<select class ="form-control inline" name="praticien_id" id="praticien_id">
-							{% for practitioner in practitioners %}
-							<option value="{{ practitioner.numero }}">{{ practitioner.nom }} {{ practitioner.prenom }}</option>
-							{% endfor %}
-						</select>
-												<input type="checkbox" id="remplacant" value="remplacant"> Remplaçant
-					</div>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="visit_date" id="visit_date" placeholder="jj/mm/aaaa">
+                            </div>
+                        </div>
+                        <!-- Visiteur -->
+                        <div class="form-group">
+                            <label for="praticien_id" class="col-sm-3 control-label">Visiteur</label>
 
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="visit_date" class="col-sm-2 control-label">Date de saisie :</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" name="visit_date;" id="visit_date" placeholder="jj/mm/aaaa">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="impact" class="col-sm-2 control-label">Impact de la visite :</label>
-				<div class="col-sm-6">
-					<select class ="form-control" name="impact" id="impact">
-						{% for i in 1..10 %}
-						<option value="{{ i }}">{{ i }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div class="form-group" >
-				<label for="comment" class="col-sm-2 control-label">Remarque :</label>
-				<div class="col-sm-8">
-					<textarea class ="form-control" name="comment" id="comment" placeholder="Entrez vos remarques ici ..."></textarea>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="motif_id" class="col-sm-2 control-label">Motif :</label>
-				<div class="col-sm-6">
-					<select class ="form-control" name="motif_id" id="motif_id">
-						{% for motif in motifs %}
-						<option value="{{ motif.id }}" selected>{{ motif.libelle }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="product_ids[]" class="col-sm-2 control-label">Produits présentés :</label>
-				<div class="col-sm-6">
-					<select class ="form-control" name="product_ids[]" id="product_ids">
-						{% for product in products %}
-						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="sample_ids[]" class="col-sm-2 control-label">Echantillons donnés :</label>
-				<div class="col-sm-6">
-					Echantillon N°1 :
-					<select class ="form-control" name="sample_ids[]" id="sample_ids1">
-						{% for product in products %}
-						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
-						{% endfor %}
-					</select>
-					<br><br>
-					Echantillon N°2 :
-					<select class ="form-control" name="sample_ids[]" id="sample_ids2">
-						{% for product in products %}
-						<option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-		</div>		
-	</div>
-	<br><br>
-	<div class="form-group">
-		<div class="col-sm-6">
-			<input class="btn btn-primary pull-right" type="submit" name="submit" id="submit" value="Valider">
-		</div>
-	</div>
-</form>
+                            <div class="col-sm-9">
+                                <p class="form-control-static">{{ user.nom }} {{ user.prenom }}</p>
+                            </div>
+                        </div>
+                        <!-- Praticien -->
+                        <div class="form-group">
+                            <label for="praticien_id" class="col-sm-3 control-label">Praticien</label>
 
+                            <div class="inline col-sm-9">
+                                <select class="form-control" name="practitioner_id" id="praticien_id">
+                                    <option value="">Sélectionner un praticien</option>
+                                    {% for practitioner in practitioners %}
+                                        <option value="{{ practitioner.numero }}">{{ practitioner.nom }} {{ practitioner.prenom }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <div class="input-group-addon">
+                                    <div class="checkbox">
+                                        <label for="remplacant">
+                                            <input type="checkbox" id="remplacant" value="remplacant"> Remplaçant *
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <span id="helpBlock" class="help-block">* En cas d'absence du praticien veuillez cocher la case "Remplaçant"</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Impact -->
+                        <div class="form-group">
+                            <label for="impact" class="col-sm-2 control-label">Impact</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control" name="impact" id="impact">
+                                    {% for i in 1..10 %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Motif -->
+                        <div class="form-group">
+                            <label for="motif_id" class="col-sm-2 control-label">Motif</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control" name="motif_id" id="motif_id">
+                                    <option value="">Sélectionner le motif de la visite</option>
+                                    {% for motif in motifs %}
+                                        <option value="{{ motif.id }}" selected>{{ motif.libelle }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Remarques -->
+                        <div class="form-group">
+                            <label for="comment" class="control-label">Remarques</label>
+                            <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Tenue du cabinet, concurrence ..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-medkit" aria-hidden="true"></i> Produits présentés</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <select class="form-control" name="product_ids[]" id="product_id">
+                                <option selected value="">Selectionner un produit</option>
+                                {% for product in products %}
+                                    <option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-medkit" aria-hidden="true"></i> Echantillons offerts</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <select class="form-control" name="sample_ids[]" id="sample_id">
+                                <option selected value="">Selectionner un produit</option>
+                                {% for product in products %}
+                                    <option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>ENVOYER</button>
+            <button type="reset" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i>REINITIALISER</button>
+        </div>
+    </form>
+
+{% endblock %}
+{% block script %}
+    <script src="/js/form.js"></script>
 {% endblock %}

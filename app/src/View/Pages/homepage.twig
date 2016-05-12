@@ -12,14 +12,85 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Mes statistiques</h2>
+    <div class="page-header">
+        <h3>CONSULTATION
+            <small> Statistiques</small>
+        </h3>
+    </div>
     <div class="row">
         <div class="col-md-6">
-            <canvas id="globalChart"></canvas>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-area-chart" aria-hidden="true"></i>Statistiques globales sur l'année</h3>
+                </div>
+                <div class="panel-body">
+                    <canvas id="globalChart"></canvas>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
-            <canvas id="txImpactChart"></canvas>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-area-chart" aria-hidden="true"></i>Evolution de l'impact des visites effectuées</h3>
+                </div>
+                <div class="panel-body">
+                    <canvas id="txImpactChart"></canvas>
+                </div>
+            </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-clock-o" aria-hidden="true"></i>Derniers bilans saisis</h3>
+                </div>
+                <table class="table table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>NUMERO</th>
+                        <th>DATE VISITE</th>
+                        <th>PRATICIEN</th>
+                        <th>MOTIF VISITE</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for report in reports %}
+                        <tr>
+                            <td>{{ report.numero }}</td>
+                            <td>{{ report.date_visite|date("d/m/Y") }}</td>
+                            <td>{{ report.nom }} {{ report.prenom }}</td>
+                            <td>{{ report.libelle }}</td>
+                            <td><a href="{{ path_for('report_view', { report_id: report.numero }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-star" aria-hidden="true"></i>Classement des praticiens par notoriété</h3>
+                </div>
+                <table class="table table-responsive table-hover">
+                    <thead>
+                        <th>Ordre</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Notoriété</th>
+                    </thead>
+                    {% for i,practitioner in practitioners %}
+                        <tr>
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ practitioner.nom }}</td>
+                            <td>{{ practitioner.prenom }}</td>
+                            <td>{{ practitioner.coef_notoriete }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

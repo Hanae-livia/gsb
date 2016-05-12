@@ -4,6 +4,10 @@
     color: #2a3f54;
 }
 
-h3 {
+.caption h3 {
     color: #3498db;
+}
+
+.thumbnail {
+    background-color: #fff;
 }

@@ -41,7 +41,7 @@ h4 {
 
 .view-content {
     height: calc(100% - 80px);
-    padding: 30px;
+    padding: 0 30px;
     overflow-y: auto;
 }
 
@@ -152,8 +152,17 @@ h4 {
     position: inherit;
     width: 100%;
     background-color: #455c73;
-    border-right: 6px solid #3498db;
+}
 
+.dropdown-vertical-menu > li > a:focus {
+    position: inherit;
+    width: 100%;
+    background-color: transparent;
+}
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: transparent;
+    border-color: transparent;
 }
 
 /* Vertical menu */
@@ -180,12 +189,10 @@ h4 {
 
 .nav > li > a.navbar-item:hover {
     background-color: #455c73;
-    border-right: 6px solid #3498db;
 }
 
 .nav > li > a.navbar-item:focus {
     background-color: transparent;
-    border-bottom: 1px solid #455c73;
 }
 
 .fa {
@@ -213,5 +220,15 @@ h4 {
     border: none;
 }
 
+/* Tableaux */
 
+th {
+    font-size: 22px;
+    font-weight: 400;
+    color: #3498db;
+}
+
+td {
+    font-size: 20px;
+}
 

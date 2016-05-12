@@ -75,6 +75,34 @@ class Report extends Model
     }
 
     /**
+     * Récupère dans la bdd les raports selon l'utilisateur connecté
+     * Seulement les trois plus récents
+     *
+     * @internal param int $limit
+     * @internal param int $offset
+     *
+     * @return mixed
+     */
+    public function findRecent ()
+    {
+        $userMatricule = $_SESSION['user']['matricule'];
+
+        // Requête d'extraction des comptes rendus de visite
+        $sql = 'SELECT bilan.numero, bilan.date_visite, bilan.date_saisie, praticien.nom, praticien.prenom, motif.libelle
+                FROM bilan, utilisateur, praticien, motif
+                WHERE utilisateur_matricule = utilisateur.matricule
+                AND praticien_numero = praticien.numero
+                AND bilan.motif_id = motif.id
+                AND utilisateur.matricule = ' . $userMatricule . '
+                ORDER BY date_saisie
+                LIMIT 5';
+
+        $result = $this->db->query($sql);
+
+        return $result ? $result->fetchAll() : [];
+    }
+
+    /**
      * Retourne le nombre de rapport de l'utilisateur
      *
      * @return int
@@ -129,9 +157,11 @@ class Report extends Model
 
             // Construction de la requête
             foreach ($params['product_ids'] as $key => $product_id) {
-                $productsSql[]                            = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
-                $products[':bilan_numero' . $key]         = $reportId;
-                $products[':medicament_reference' . $key] = $product_id;
+                if (!empty($product_id)) {
+                    $productsSql[]                            = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
+                    $products[':bilan_numero' . $key]         = $reportId;
+                    $products[':medicament_reference' . $key] = $product_id;
+                }
             }
 
             $sqlProducts = 'INSERT INTO produit_presente
@@ -148,9 +178,11 @@ class Report extends Model
 
                 // Construction de la requête
                 foreach ($params['sample_ids'] as $key => $sample_id) {
-                    $sampleSql[]                             = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
-                    $samples[':bilan_numero' . $key]         = $reportId;
-                    $samples[':medicament_reference' . $key] = $sample_id;
+                    if (!empty($sample_id)) {
+                        $sampleSql[]                             = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
+                        $samples[':bilan_numero' . $key]         = $reportId;
+                        $samples[':medicament_reference' . $key] = $sample_id;
+                    }
                 }
 
                 $sqlSamples = 'INSERT INTO echantillon
@@ -159,11 +191,9 @@ class Report extends Model
                 $querySamples = $this->db->prepare($sqlSamples);
 
                 $resultSamples = $querySamples->execute($samples);
-
-                return $resultSamples;
             }
 
-            return $resultProducts;
+            return $reportId;
         }
 
         return $result;

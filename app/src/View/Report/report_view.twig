@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
-    <button class="btn btn-default" type="button"><a href="{{ path_for('report_list') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Retour</a></button>
     <div class="page-header">
-        <h3>RAPPORT DE VISITE n°1
-            <small> Saisi le 28/05/2016</small>
+        <button class="btn btn-default" type="button"><a href="{{ path_for('report_list') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Retour</a></button>
+        <h3>RAPPORT DE VISITE n°{{ report.numero }}
+            <small> Saisi le {{ report.date_saisie|date("d/m/Y") }}</small>
         </h3>
     </div>
     <div class="panel panel-primary">
@@ -18,9 +18,9 @@
             <h3 class="panel-title"><i class="fa fa-suitcase" aria-hidden="true"></i> Visite</h3>
         </div>
         <ul class="list-group">
-            <li class="list-group-item">Statut : {{ user.statut }}</li>
-            <li class="list-group-item">Matricule : {{ user.matricule }}</li>
-            <li class="list-group-item">Adresse : {{ user.adresse }}, {{ user.cp }}, {{ user.ville }}</li>
+            <li class="list-group-item">Date : {{ report.date_visite|date("d/m/Y") }}</li>
+            <li class="list-group-item">Impact : {{ report.impact }}</li>
+            <li class="list-group-item">Remarques : {{ report.remarque |default('Aucune remarque n\'a été saisie') }}</li>
         </ul>
     </div>
     <div class="row">
@@ -45,13 +45,12 @@
                     <h3 class="panel-title"><i class="fa fa-user-md" aria-hidden="true"></i> Praticien visité</h3>
                 </div>
                 <div class="panel-body">
-                    <h4>{{ user.nom }} {{ user.prenom }}</h4>
+                    <h4>{{ report.nom }} {{ report.prenom }}</h4>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Numero : {{ user.statut }}</li>
-                    <li class="list-group-item">Adresse : {{ user.adresse }}, {{ user.cp }}, {{ user.ville }}</li>
-                    <li class="list-group-item">Coefficient de notoriété : {{ user.matricule }}</li>
-
+                    <li class="list-group-item">Numero : {{ report.numero }}</li>
+                    <li class="list-group-item">Coefficient de notoriété : {{ report.coef_notoriete }}</li>
+                    <li class="list-group-item">Adresse : {{ report.adresse }}, {{ report.cp }}, {{ report.ville }}</li>
                 </ul>
             </div>
         </div>
@@ -61,22 +60,16 @@
             <h3 class="panel-title"><i class="fa fa-medkit" aria-hidden="true"></i> Produits présentés</h3>
         </div>
         <div class="panel-body">
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
+            {% for product in report.products %}
+                <div class="col-sm-4 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/img/produit/product-img.png" alt="">
+                        <div class="caption">
+                            <h3>{{ product.nom_commercial }}<span class="ref_produit">(ref.{{ product.reference }})</span></h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="panel panel-primary">
@@ -84,46 +77,16 @@
             <h3 class="panel-title"><i class="fa fa-medkit" aria-hidden="true"></i> Echantillons offerts</h3>
         </div>
         <div class="panel-body">
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
+            {% for sample in report.samples %}
+                <div class="col-sm-4 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/img/produit/product-img.png" alt="">
+                        <div class="caption">
+                            <h3>{{ sample.nom_commercial }}<span class="ref_produit">(ref.{{ sample.reference }})</span></h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
-                    <div class="caption">
-                        <h3>{{ product.nom_commercial }} Doliprane  <span class="ref_produit">(ref.doli{{ product.reference }})</span></h3>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

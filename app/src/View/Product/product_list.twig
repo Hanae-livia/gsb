@@ -7,12 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Catalogue des produits</h2>
+    <div class="page-header">
+        <h3>CONSULTATION
+            <small> Catalogue des produits commercialisés par GSB</small>
+        </h3>
+    </div>
     <div class="row">
         {% for product in products %}
             <div class="col-sm-4 col-md-3">
                 <div class="thumbnail">
-                    <img src="/img/produit/product-img.png" alt="">
+                    <img src="/img/produit/product-img.png" alt="Photo du produit commercialisé">
                     <div class="caption">
                         <h3>{{ product.nom_commercial }}  <span class="ref_produit">(ref.{{ product.reference }})</span></h3>
                         <h4>Cas d'utilisation</h4>
