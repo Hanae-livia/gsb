@@ -116,7 +116,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <select class="form-control" name="product_ids[]" id="product_id">
+                            <select class="form-control product-id" name="product_ids[]" id="product_id">
                                 <option selected value="">Selectionner un produit</option>
                                 {% for product in products %}
                                     <option value="{{ product.reference }}">{{ product.nom_commercial }}</option>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <select class="form-control" name="sample_ids[]" id="sample_id">
+                            <select class="form-control sample-id" name="sample_ids[]" id="sample_id">
                                 <option selected value="">Selectionner un produit</option>
                                 {% for product in products %}
                                     <option value="{{ product.reference }}">{{ product.nom_commercial }}</option>

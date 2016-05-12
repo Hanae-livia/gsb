@@ -158,8 +158,8 @@ class Report extends Model
 
             // Construction de la requête
             foreach ($params['product_ids'] as $key => $product_id) {
-                if (!empty($product_id)) {
-                    $productsSql[]                            = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
+                if (!empty($product_id) && !isset($productsSql[$product_id])) {
+                    $productsSql[$product_id]                 = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
                     $products[':bilan_numero' . $key]         = $reportId;
                     $products[':medicament_reference' . $key] = $product_id;
                 }
@@ -179,8 +179,8 @@ class Report extends Model
 
                 // Construction de la requête
                 foreach ($params['sample_ids'] as $key => $sample_id) {
-                    if (!empty($sample_id)) {
-                        $sampleSql[]                             = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
+                    if (!empty($sample_id) && !isset($sampleSql[$sample_id])) {
+                        $sampleSql[$sample_id]                   = '(:bilan_numero' . $key . ', :medicament_reference' . $key . ')';
                         $samples[':bilan_numero' . $key]         = $reportId;
                         $samples[':medicament_reference' . $key] = $sample_id;
                     }
