@@ -131,8 +131,8 @@ class Report extends Model
     {
         // Requête avec des paramètres (:nom) ou marqueurs (?) pour lesquels les valeurs réelles seront substituées
         // lorsque la requête sera exécutée
-        $sql = 'INSERT INTO `bilan` (`date_visite`, `date_saisie`, `impact`, `remarque`, `utilisateur_matricule`, `praticien_numero`, `motif_id`)
-                VALUES (:date_visite, :date_saisie, :impact, :remarque, :utilisateur_matricule, :praticien_numero, :motif_id)';
+        $sql = 'INSERT INTO `bilan` (`date_visite`, `date_saisie`, `impact`, `remarque`, `utilisateur_matricule`, `praticien_numero`, `motif_id`, `remplacant`)
+                VALUES (:date_visite, :date_saisie, :impact, :remarque, :utilisateur_matricule, :praticien_numero, :motif_id, :remplacant)';
 
         // Préparation de la requête : récupère la requête  et sait qu'il doit remplacer ...
         $query = $this->db->prepare($sql);
@@ -145,7 +145,8 @@ class Report extends Model
             ':remarque'              => $params['comment'],
             ':utilisateur_matricule' => $_SESSION['user']['matricule'],
             ':praticien_numero'      => $params['practitioner_id'],
-            ':motif_id'              => $params['motif_id']
+            ':motif_id'              => $params['motif_id'],
+            ':remplacant'            => isset($params['remplacant']) ? $params['remplacant'] : 0
         ]);
 
 

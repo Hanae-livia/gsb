@@ -45,7 +45,7 @@
                     <h3 class="panel-title"><i class="fa fa-user-md" aria-hidden="true"></i> Praticien visité</h3>
                 </div>
                 <div class="panel-body">
-                    <h4>{{ report.nom }} {{ report.prenom }}</h4>
+                    <h4>{{ report.nom }} {{ report.prenom }} {{ report.remplacant ? '(Remplacant)' : '' }}</h4>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">Numero : {{ report.numero }}</li>
