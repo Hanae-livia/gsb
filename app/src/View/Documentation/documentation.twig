@@ -13,8 +13,9 @@
 </head>
 <body data-spy="scroll" data-target="#navbar" data-offset="10">
 <header>
+    <button class="btn btn-default homepageLink" type="button"><a href="{{ path_for('homepage') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Accueil</a></button>
     <div class="container"  id="presentation">
-        <h1>Documentation</h1>
+        <h1>DOCUMENTATION</h1>
     </div>
 </header>
 <div class="container">
@@ -22,14 +23,29 @@
         <div class="col-md-10 content">
             <section >
                 {% set activeSection = 'presentation' %}
-                <h2>Présentation</h2>
-                <p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on top of Bootstrap. If you’ve used Bootstrap
-                    itself, you’ll find this all super familiar, but with new aesthetics, new components, beautiful and extensive examples, and easy-to-use build tools and
-                    documentation. </p>
+                <div class="page-header">
+                    <h3>INTRODUCTION</h3>
+                </div>
+                <p>GSB Espace membre est une application web de <span class="text-primary">centralisation de rapports de visites</span>. L'application vous permet d'envoyer vos
+                    rapports
+                    de
+                    visites à
+                    votre hiérarchie directement depuis l'application.</p>
+                <p>Elle vous permet également de consulter :
+                <ul>
+                    <li>- Les rapports envoyés</li>
+                    <li>- La liste des praticiens partenaires de GSB</li>
+                    <li>- Le catalogue des produits commercialisés par GSB </li>
+                    <li>- Une sythèse de votre travail</li>
+                </ul></p>
             </section>
             <section id="account">
                 {% set activeSection = 'account' %}
-                <h2>Consulter mes informations personnelles</h2>
+                <div class="page-header">
+                    <h3><i class="fa fa-home"
+                           aria-hidden="true"></i> ACCUEIL <small> L'onglet " mon compte "</small>
+                    </h3>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <img class="img-rounded" src="/img/documentation/accountJPG.JPG" alt=""/>
@@ -47,7 +63,11 @@
             </section>
             <section id="statistic">
                 {% set activeSection = 'statistic' %}
-                <h2>Comprendre le fonctionnement des statistiques</h2>
+                <div class="page-header">
+                    <h3><i class="fa fa-home"
+                           aria-hidden="true"></i> ACCUEIL <small> Statistiques</small>
+                    </h3>
+                </div>
                 <p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on top of Bootstrap. If you’ve used Bootstrap
                     itself, you’ll find this all super familiar, but with new aesthetics, new components, beautiful and extensive examples, and easy-to-use build tools and
                     documentation.
@@ -58,13 +78,16 @@
             </section>
             <section id="report">
                 {% set activeSection = 'report' %}
-                <h2>Module rapports</h2>
+                <div class="page-header">
+                    <h3><i class="fa fa-file-text-o"
+                           aria-hidden="true"></i> RAPPORTS <small> Envoyer un rapport</small>
+                    </h3>
+                </div>
                 <p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on top of Bootstrap. If you’ve used Bootstrap
                     itself, you’ll find this all super familiar, but with new aesthetics, new components, beautiful and extensive examples, and easy-to-use build tools and
                     documentation.</p>
                 <div id="report_add">
                     <div class="row">
-                        <h3>Saisir un rapport de visite</h3>
                         <div class="col-md-3">
                             <img class="img-rounded" src="/img/documentation/accountJPG.JPG" alt=""/>
                         </div>
@@ -81,7 +104,11 @@
                 </div>
                 <div id="report_list">
                     <div class="row">
-                        <h3>Consulter les rapports de visite</h3>
+                        <div class="page-header">
+                            <h3><i class="fa fa-file-text-o"
+                                   aria-hidden="true"></i> RAPPORTS <small> Consulter les rapports précedemment envoyés</small>
+                            </h3>
+                        </div>
                         <div class="col-md-3">
                             <img class="img-rounded" src="/img/documentation/accountJPG.JPG" alt=""/>
                         </div>
@@ -99,7 +126,11 @@
             </section>
             <section id="practitioner">
                 {% set activeSection = 'practitioner' %}
-                <h2>Module praticiens</h2>
+                <div class="page-header">
+                    <h3><i
+                                class="fa fa-user-md" aria-hidden="true"></i> PRATICIENS <small> Consulter la liste des praticiens partenaires de GSB</small>
+                    </h3>
+                </div>
                 <p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on top of Bootstrap. If you’ve used Bootstrap
                     itself, you’ll find this all super familiar, but with new aesthetics, new components, beautiful and extensive examples, and easy-to-use build tools and
                     documentation.
@@ -110,7 +141,10 @@
             </section>
             <section id="product">
                 {% set activeSection = 'product' %}
-                <h2>Module produits</h2>
+                <div class="page-header">
+                    <h3><i class="fa fa-medkit" aria-hidden="true"></i> PRODUITS <small> Consulter le catalogue des produits commercialisés par GSB</small>
+                    </h3>
+                </div>
                 <p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on top of Bootstrap. If you’ve used Bootstrap
                     itself, you’ll find this all super familiar, but with new aesthetics, new components, beautiful and extensive examples, and easy-to-use build tools and
                     documentation.
@@ -119,23 +153,42 @@
                     For everything else, including compiling and using this Bootstrap theme, read through the docs below.
                     Thanks, and enjoy! </p>
             </section>
+            <section id="warning">
+                {% set activeSection = 'warning' %}
+                <div class="page-header">
+                    <h3><i class="fa fa-exclamation" aria-hidden="true"></i> MISE EN GARDE
+                    </h3>
+                </div>
+                <p>Par mesure de sécurité, vous ne devez en aucun cas communiquer votre mot de passe à une tierce personne.</p>
+                <p>Si vous remarquez une activité suspecte sur votre compte vous devez immédiatement en avertir la hiérarchie.</p>
+            </section>
         </div>
+        <!-- Barre de navigation latérale -->
         <div class="col-md-2">
             <nav id="navbar">
                 <ul class="nav" role="tablist">
-                    <li {% if activeSection == 'presentation' %}class="active"{% endif %}><a href="#presentation">Présentation</a></li>
-                    <li {% if activeSection == 'account' %}class="active"{% endif %}><a href="#account">Informations personnelles</a></li>
-                    <li {% if activeSection == 'statistic' %}class="active"{% endif %}><a href="#statistic">Fonctionnement des statistiques</a></li>
-                    <li {% if activeSection == 'report' %}class="active"{% endif %}><a href="#report">Rapports de visite</a>
+                    <li class="navbarItem" {% if activeSection == 'presentation' %}class="active"{% endif %}><a href="#presentation">INTRODUCTION</a></li>
+                    <li class="navbarItem" {% if activeSection == 'account' %}class="active"{% endif %}><a href="#account"><i class="fa fa-home"
+                                                                                                                              aria-hidden="true"></i> ACCUEIL</a>
                         <ul>
-                            <li><a href="#report_add">Saisir un rapport de visite</a></li>
-                            <li><a href="#report_list">Consulter les rapports de visite saisis</a></li>
+                            <li class="navbarItem"><a href="#account">Saisir un rapport de visite</a></li>
+                            <li class="navbarItem"><a href="#statistic">Fonctionnement des statistiques</a></li>
                         </ul>
                     </li>
-                    <li {% if activeSection == 'practitioner' %}class="active"{% endif %}><a href="#practitioner">Consulter la liste des praticiens</a></li>
-                    <li {% if activeSection == 'product' %}class="active"{% endif %}><a href="#product">Consulter la liste des produits</a></li>
+                    <li class="navbarItem" {% if activeSection == 'statistic' %}class="active"{% endif %}><a href="#">Fonctionnement des statistiques</a></li>
+                    <li class="navbarItem" {% if activeSection == 'report' %}class="active"{% endif %}><a href="#report"><i class="fa fa-file-text-o"
+                                                                                                                            aria-hidden="true"></i> RAPPORTS</a>
+                        <ul>
+                            <li class="navbarItem"><a href="#report_add">Saisir un rapport de visite</a></li>
+                            <li class="navbarItem"><a href="#report_list">Consulter les rapports de visite saisis</a></li>
+                        </ul>
+                    </li>
+                    <li {% if activeSection == 'practitioner' %}class="active"{% endif %}><a href="#practitioner"><i
+                                    class="fa fa-user-md" aria-hidden="true"></i> PRATICIENS</a></li>
+                    <li {% if activeSection == 'product' %}class="active"{% endif %}><a href="#product"><i class="fa fa-medkit" aria-hidden="true"></i> PRODUITS</a></li>
+                    <li class="navbarItem" {% if activeSection == 'warning' %}class="active"{% endif %}><a href="#warning"><i class="fa fa-exclamation"
+                                                                                                                              aria-hidden="true"></i> MISE EN GARDE</a></li>
                 </ul>
-                <button class="btn" type="button">Revenir en haut</button>
             </nav>
         </div>
     </div>

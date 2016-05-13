@@ -7,12 +7,12 @@ body {
 
 body {
     position: relative;
+    font-size: 20px;
+    font-weight: 300;
 }
 
-h2 {
-    padding-bottom: 10px;
-    color: #3498db;
-    border-bottom: 1px solid #eee;
+.fa {
+    font-size: 20px;
 }
 
 /* En-tête */
@@ -27,7 +27,11 @@ header {
 header h1 {
     font-weight: 300;
     font-size: 60px;
-    line-height: 240px;
+    line-height: 120px;
+}
+
+.homepageLink {
+    margin: 20px 0 0 20px;
 }
 
 /* Navigation */
@@ -36,15 +40,18 @@ header h1 {
     position: fixed;
 }
 
+ul {
+    list-style: none;
+}
 
 ul>li>a {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 400;
     color: #2A3F54;
     opacity: 1;
 }
 
-ul>li>a:hover {
+.nav>li>a:hover {
     background-color: transparent;
     opacity: 0.8;
 }
@@ -54,7 +61,7 @@ ul>li>a:focus {
 }
 
 .active {
-    border-left: 4px solid #1abb9c;
+    border-left: 4px solid #3498DB;
 }
 
 .active>a {
