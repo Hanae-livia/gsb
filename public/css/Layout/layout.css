@@ -101,7 +101,7 @@ h4 {
 .userBook-link {
     position: absolute;
     bottom: 78px;
-    left : 0; ;
+    left: 0;;
     width: 100%;
     padding: 25px 0;
     font-size: 20px;
@@ -161,7 +161,7 @@ h4 {
     background-color: transparent;
 }
 
-.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background-color: transparent;
     border-color: transparent;
 }
@@ -200,7 +200,7 @@ h4 {
     padding: 0 15px 0 0;
 }
 
-.active {
+.activeItem {
     background-color: #455c73;
     border-right: 6px solid #3498db;
 }
@@ -224,12 +224,15 @@ h4 {
 /* Tableaux */
 
 th {
-    font-size: 22px;
     font-weight: 400;
     color: #3498db;
 }
 
-td {
+.table-list th {
+    font-size: 22px;
+}
+
+.table-list td {
     font-size: 20px;
 }
 
