@@ -39,6 +39,7 @@ $(document).ready(function () {
                         yAxes: [{
                             ticks: {
                                 stepSize: 1,
+                                max: 11,
                                 beginAtZero: true
                             }
                         }]

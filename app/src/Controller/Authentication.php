@@ -91,7 +91,7 @@ class Authentication extends Controller
         }
 
         Flash::set('params', $params);
-        Flash::has('errors', $errors);
+        Flash::set('errors', $errors);
 
         return $response->withRedirect($router->pathFor('login_page'));
 

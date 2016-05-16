@@ -28,10 +28,10 @@ $app->group('/dashboard', function () {
     });
 
     // Bilan : saisie
-    $this->get('/saisie-bilan', 'GSB\Controller\Report:formAdd')->setName('report_add');
+    $this->get('/saisie-rapport', 'GSB\Controller\Report:formAdd')->setName('report_add');
 
     // Bilan : traitement
-    $this->post('/ajout-bilan', 'GSB\Controller\Report:create')->setName('report_create');
+    $this->post('/ajout-rapport', 'GSB\Controller\Report:create')->setName('report_create');
 
     // Bilan : consultation
     $this->get('/consultation-rapports', 'GSB\Controller\Report:index')->setName('report_list');

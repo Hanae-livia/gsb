@@ -13,7 +13,7 @@
             <small> Nouveau rapport de visite</small>
         </h3>
     </div>
-    <form class="form-horizontal" role="form" method="post" action="{{ path_for('report_create') }}">
+    <form id="formAdd" class="form-horizontal" role="form" method="post" action="{{ path_for('report_create') }}">
         {% if errors is defined and errors is not empty %}
             <div class="alert alert-danger">
                 {% for error in errors %}
@@ -76,6 +76,7 @@
 
                             <div class="col-sm-10">
                                 <select class="form-control" name="impact" id="impact">
+                                    <option selected value="">Sélectionner l'impact de la visite</option>
                                     {% for i in 1..10 %}
                                         <option value="{{ i }}">{{ i }}</option>
                                     {% endfor %}
@@ -88,9 +89,9 @@
 
                             <div class="col-sm-10">
                                 <select class="form-control" name="motif_id" id="motif_id">
-                                    <option value="">Sélectionner le motif de la visite</option>
+                                    <option selected value="">Sélectionner le motif de la visite</option>
                                     {% for motif in motifs %}
-                                        <option value="{{ motif.id }}" selected>{{ motif.libelle }}</option>
+                                        <option value="{{ motif.id }}">{{ motif.libelle }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -147,7 +148,7 @@
             </div>
         </div>
         <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>ENVOYER</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>ENVOYER</button>
             <button id="btn-reset" type="reset" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i>REINITIALISER</button>
         </div>
     </form>
