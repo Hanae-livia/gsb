@@ -16,6 +16,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4 col-login">
             <div class="login-box">
+                {{ Alert.alert('Version de démonstration', 'warning') }}
                 <h2 class="logo"><span class="logo-bold">GSB</span> Espace membre</h2>
                 {{ Alert.alert(errors.global) }}
                 <form id="form_login" action="{{ path_for('login') }}" method="post">
@@ -23,12 +24,12 @@
                         <div class="col-md-12">
                             {{ Alert.alert(errors.inputUser) }}
                             <div class="form-group feedback-left">
-                                <input type="text" class="form-control form-login" id="inputUser" name="inputUser" value="{{ params.inputUser|default('') }}">
+                                <input type="text" class="form-control form-login" id="inputUser" name="inputUser" value="{{ params.inputUser|default('doej') }}">
                                 <span class="glyphicon glyphicon-user"></span>
                             </div>
                             {{ Alert.alert(errors.inputPassword) }}
                             <div class="form-group feedback-left">
-                                <input type="password" class="form-control form-login" id="inputPassword" name="inputPassword">
+                                <input type="password" class="form-control form-login" id="inputPassword" name="inputPassword" value="mdpdemo">
                                 <span class="glyphicon glyphicon-lock"></span>
                             </div>
                             <div class="form-group">

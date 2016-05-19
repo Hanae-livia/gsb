@@ -160,6 +160,9 @@ class Report extends Controller
     {
         // Récupération du routeur pour la redirection
         $router  = $this->container->get('router');
+        // Désactivation du formulaire
+        return $response->withRedirect($router->pathFor('report_add'));
+
         $errors  = [];
         $success = [];
 

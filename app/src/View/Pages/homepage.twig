@@ -64,6 +64,10 @@
                             <td>{{ report.libelle }}</td>
                             <td><a href="{{ path_for('report_view', { report_id: report.numero }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                         </tr>
+                    {% else %}
+                        <tr class="text-center">
+                            <td colspan="5">Aucun rapport saisi</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
@@ -87,6 +91,10 @@
                             <td>{{ practitioner.nom }}</td>
                             <td>{{ practitioner.prenom }}</td>
                             <td>{{ practitioner.coef_notoriete }}</td>
+                        </tr>
+                    {% else %}
+                        <tr class="text-center">
+                            <td colspan="4">Aucun praticien enregistré</td>
                         </tr>
                     {% endfor %}
                 </table>

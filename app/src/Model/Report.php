@@ -213,6 +213,7 @@ class Report extends Model
         $sql = 'SELECT MONTH(date_visite) AS month, COUNT(*) AS total
                 FROM bilan
                 WHERE utilisateur_matricule = ' . $userMatricule . '
+                AND YEAR(date_visite) = 2016
                 GROUP BY MONTH(date_visite)
                 ORDER BY date_visite';
 
@@ -235,6 +236,7 @@ class Report extends Model
                 FROM bilan
                 LEFT JOIN produit_presente ON bilan.numero = produit_presente.bilan_numero
                 WHERE utilisateur_matricule = ' . $userMatricule . '
+                AND YEAR(date_visite) = 2016
                 GROUP BY MONTH(date_visite)
                 ORDER BY date_visite';
 
@@ -257,6 +259,7 @@ class Report extends Model
                 FROM bilan
                 LEFT JOIN echantillon ON bilan.numero = echantillon.bilan_numero
                 WHERE utilisateur_matricule = ' . $userMatricule . '
+                AND YEAR(date_visite) = 2016
                 GROUP BY MONTH(date_visite)
                 ORDER BY date_visite';
 
@@ -277,6 +280,7 @@ class Report extends Model
         $sql = 'SELECT MONTH(date_visite) AS month, ROUND(AVG(impact)) AS moyImpact
                 FROM bilan
                 WHERE utilisateur_matricule = ' . $userMatricule . '
+                AND YEAR(date_visite) = 2016
                 GROUP BY MONTH(date_visite)
                 ORDER BY date_visite';
 
@@ -295,6 +299,7 @@ class Report extends Model
     {
         $sql = 'SELECT MONTH(date_visite) AS month, ROUND(AVG(impact)) AS moyImpact
                 FROM bilan
+                WHERE YEAR(date_visite) = 2016
                 GROUP BY MONTH(date_visite)
                 ORDER BY date_visite';
 

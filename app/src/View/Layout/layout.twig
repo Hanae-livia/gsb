@@ -74,7 +74,7 @@
                     <li class="accountContent-item"><span class="glyphicon glyphicon-calendar"></span><p>Date d'embauche <br/>{{ user.date_embauche }}</p></li>
                     <li class="accountContent-item"><span class="glyphicon glyphicon-map-marker"></span><p>Adresse <br/>{{ user.adresse }}, <br/>{{ user.cp }} {{ user.ville }}</p></li>
                 </ul>
-                <a class="userBook-link" href="{{ path_for('documentation') }}"><i class="fa fa-book" aria-hidden="true"></i>DOCUMENTATION</a>
+                {#<a class="userBook-link" href="{{ path_for('documentation') }}"><i class="fa fa-book" aria-hidden="true"></i>DOCUMENTATION</a>#}
                 <a class="logout-link" href="{{ path_for('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>DECONNEXION</a>
             </section>
             <div class="view-content">

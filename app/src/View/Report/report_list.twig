@@ -31,32 +31,42 @@
                 <td>{{ report.libelle }}</td>
                 <td><a href="{{ path_for('report_view', { report_id: report.numero }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
             </tr>
+        {% else %}
+            <tr class="text-center">
+                <td colspan="5">Aucun rapport saisi</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
-    <nav class="text-center">
-        <ul class="pagination">
-            <li class="{{ pagination.previous ? '' : 'disabled' }}">
-                {% if pagination.previous %}
-                    <a href="{{ path_for('report_list') }}?page={{ pagination.current - 1 }}" aria-label="Previous">
+    {% if pagination.nbPage != 0 %}
+        <nav class="text-center">
+            <ul class="pagination">
+                <li class="{{ pagination.previous ? '' : 'disabled' }}">
+                    {% if pagination.previous %}
+                        <a href="{{ path_for('report_list') }}?page={{ pagination.current - 1 }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
                         <span aria-hidden="true">&laquo;</span>
-                    </a>
-                {% else %}
-                    <span aria-hidden="true">&laquo;</span>
-                {% endif %}
-            </li>
-            {% for i in 1..pagination.nbPage %}
-                <li class="{{ pagination.current == i ? 'active' : '' }}"><a href="{{ path_for('report_list') }}?page={{ i }}">{{ i }}</a></li>
-            {% endfor %}
-            <li class="{{ pagination.next ? '' : 'disabled' }}">
-                {% if pagination.next %}
-                    <a href="{{ path_for('report_list') }}?page={{ pagination.current + 1 }}" aria-label="Next">
+                    {% endif %}
+                </li>
+                {% for i in 1..pagination.nbPage %}
+                    <li class="{{ pagination.current == i ? 'active' : '' }}">
+                        <a href="{{ path_for('report_list') }}?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="{{ pagination.next ? '' : 'disabled' }}">
+                    {% if pagination.next %}
+                        <a href="{{ path_for('report_list') }}?page={{ pagination.current + 1 }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
                         <span aria-hidden="true">&raquo;</span>
-                    </a>
-                {% else %}
-                    <span aria-hidden="true">&raquo;</span>
-            {% endif %}
-            </li>
-        </ul>
-    </nav>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
+
 {% endblock %}

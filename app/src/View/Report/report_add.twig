@@ -13,7 +13,10 @@
             <small> Nouveau rapport de visite</small>
         </h3>
     </div>
-    <form id="formAdd" class="form-horizontal" role="form" method="post" action="{{ path_for('report_create') }}">
+    <form id="formAdd" class="form-horizontal" role="form">
+        <div class="alert alert-warning">
+            Le formulaire est désactivé sur la version de démonstration
+        </div>
         {% if errors is defined and errors is not empty %}
             <div class="alert alert-danger">
                 {% for error in errors %}
@@ -103,7 +106,7 @@
                         <!-- Remarques -->
                         <div class="form-group">
                             <label for="comment" class="control-label">Remarques</label>
-                            <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Tenue du cabinet, concurrence ..."></textarea>
+                            <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Tenue du cabinet,concurrence ..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -148,7 +151,7 @@
             </div>
         </div>
         <div class="btn-group" role="group">
-            <button id="btn-submit" type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>ENVOYER</button>
+            <button id="btn-submit" type="submit" class="btn btn-primary" disabled><i class="fa fa-paper-plane-o" aria-hidden="true"></i>ENVOYER</button>
             <button id="btn-reset" type="reset" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i>REINITIALISER</button>
         </div>
     </form>
